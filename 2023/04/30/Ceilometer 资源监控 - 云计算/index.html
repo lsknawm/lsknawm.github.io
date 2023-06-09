@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Hexo">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="Ceilometer 资源监控, Hexo">
+    <meta name="description" content="# ceilometer 资源监控# 简介OpenStack 通过 Telemetry 项目提供计量与监控服务，该项目旨在针对组成已部署云的物理和虚拟资源，可靠地收集并保存各类使用数据，以便对这些数据进行后续检索和分析，并在满足已定义条件或">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Hexo</title>
+    <title>Ceilometer 资源监控 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -334,12 +334,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">Ceilometer 资源监控</h1>
                 </div>
             </div>
         </div>
@@ -375,7 +375,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-06-09
+                    2023-04-30
                 </div>
                 
 
@@ -396,19 +396,58 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <h2 id="ceilometer-资源监控"><a href="#ceilometer-资源监控" class="headerlink" title="# ceilometer 资源监控"></a><a href="#ceilometer%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7">#</a> ceilometer 资源监控</h2><h3 id="简介"><a href="#简介" class="headerlink" title="# 简介"></a><a href="#%E7%AE%80%E4%BB%8B">#</a> 简介</h3><p>OpenStack 通过 Telemetry 项目提供计量与监控服务，该项目旨在针对组成已部署云的物理和虚拟资源，可靠地收集并保存各类使用数据，以便对这些数据进行后续检索和分析，并在满足已定义条件或者规则时触发操作 (如报警)。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="# 概念"></a><a href="#%E6%A6%82%E5%BF%B5">#</a> 概念</h3><p>1、Resource：被监控的资源对象，可以是一台虚拟机，一台物理机、一块云硬盘，或者 OpenStack 其他服务组件。</p>
+<p>2、Meter：Ceilometer 定义的监控项，这些监控项分为三种类型：</p>
+<p>Cumulative：累积的，随着时间增长 (如磁盘读写)。</p>
+<p>Gauge：计量单位，离散的项目 (如浮动 IP、镜像上传) 和波动的值(如对象存储数值)。</p>
+<p>Delta：增量，随着时间的改变而增加的值 (如带宽变化)。</p>
+<p>3、Sample：采样值，是每个采集时间点上 meter 对应的具体值。</p>
+<p>4、Alarm：Ceilometer 的报警系统，可以通过阈值或者组合条件报警，并设置报警时的触发动作。</p>
+<h3 id="服务组件"><a href="#服务组件" class="headerlink" title="# 服务组件"></a><a href="#%E6%9C%8D%E5%8A%A1%E7%BB%84%E4%BB%B6">#</a> 服务组件</h3><p>1、ceilometer-agent-compute： 运行在每个计算节点上，轮询代理的一种，用于获取计算节点的测量值。</p>
+<p>2、ceilometer-agent-central：运行在管理服务器上，轮询代理的一种，用于获取 OpenStack 服务的测量值。</p>
+<p>3、ceilometer-agent-notification ： 通过监听 OpenStack 消息队列上的通知消息来获取数据。</p>
+<p>4、ceilometer-collector (deprecated in Ocata)：采集和记录通知代理和轮询代理产生的事件和计量数据。</p>
+<p>5、ceilometer-api (deprecated in Ocata) ： Ceilometer 提供的 REST API 服务。</p>
+<p>6、ceilometer-polling： 周期性地调用不同的 Pollster 插件，轮询获得流水线中定义的测量值。</p>
+<h2 id="⌚Ceilometer-命令"><a href="#⌚Ceilometer-命令" class="headerlink" title="# ⌚Ceilometer 命令"></a><a href="#%E2%8C%9Aceilometer%E5%91%BD%E4%BB%A4">#</a> ⌚Ceilometer 命令</h2><p><img src="http://10.196.110.79:30880/root/yunjisuan/raw/master/1610676-20200523114459575-1375187658.png"></p>
+<p>使用 ceilometer 相关命令，查询测量值的列表信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer meter-list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>使用 ceilometer 相关命令，查询给定名称的测量值的样本列表信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer sample-list -m vcpus</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>使用 ceilometer 相关命令，查询事件列表信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer event-list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>使用 ceilometer 相关命令，查询资源列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer resource-list</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>使用 ceilometer 相关命令，查询用户的告警列表信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer alarm-list</span><br></pre></td></tr></table></figure>
+
+<p>使用 ceilometer 相关命令，查询给定名称的告警的历史改变信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer alarm-history &lt;ALARM_ID&gt; </span><br><span class="line">例如：</span><br><span class="line">ceilometer alarm-history a3cccb1d-fea9-4b56-8eab-a743595b3ef2</span><br></pre></td></tr></table></figure>
+
+<p>使用 ceilometer 相关命令，删除给定名称的告警，并使用命令查看删除结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer alarm-delete a3cccb1d-fea9-4b56-8eab-a743595b3ef2</span><br></pre></td></tr></table></figure>
+
+<p>使用 Ceilometer 相关命令，查看某云主机有哪些样本，然后使用 Ceilometer 命令查看云主机的特定样本信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer sample-list</span><br><span class="line">[root@controller ~]# ceilometer sample-show 372645cc-f442-11e9-bb2b-40a8f0282afc</span><br></pre></td></tr></table></figure>
+
+<h3 id="📌Aodh-管理"><a href="#📌Aodh-管理" class="headerlink" title="# 📌Aodh 管理"></a><a href="#%F0%9F%93%8Caodh-%E7%AE%A1%E7%90%86">#</a> 📌Aodh 管理</h3><p>使用 aodh 相关命令创建一个新的基于计算统计的告警，具体要求如下：</p>
+<p>（1）名字为：cpu_usage_check</p>
+<p>（2）阈值为：70.0</p>
+<p>（3）统计的次数为：3</p>
+<p>（4）粒度：30</p>
+<p>（5）转为告警状态的时提交的 URL 为：’log:&#x2F;&#x2F;‘</p>
+<p>（6）实例：exam</p>
+<p>(7) 关键字：–type gnocchi_resources_threshold、–resource-type instance。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# aodh alarm create \</span><br><span class="line">  --name cpu_usage_check \</span><br><span class="line">  --type gnocchi_resources_threshold \</span><br><span class="line">  --metric cpu \</span><br><span class="line">  --threshold 70.0 \</span><br><span class="line">  --aggregation-method mean \</span><br><span class="line">  --granularity 300 \</span><br><span class="line">  --evaluation-periods 3 \</span><br><span class="line">  --alarm-action &#x27;log://&#x27; \</span><br><span class="line">  --resource-id exam \</span><br><span class="line">  --resource-type instance</span><br></pre></td></tr></table></figure>
+
+<h3 id="✒️设置告警状态不生效"><a href="#✒️设置告警状态不生效" class="headerlink" title="# ✒️设置告警状态不生效"></a><a href="#%E2%9C%92%EF%B8%8F%E8%AE%BE%E7%BD%AE%E5%91%8A%E8%AD%A6%E7%8A%B6%E6%80%81%E4%B8%8D%E7%94%9F%E6%95%88">#</a> ✒️设置告警状态不生效</h3><p>在提供的 OpenStack 平台上</p>
+<p>使用 ceilometer 相关命令，修改名称为 cpu_hi 的告警状态为不生效。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# ceilometer alarm-update --enabled False &lt;ALARM_ID&gt;</span><br><span class="line">[root@controller ~]# ceilometer alarm-update --enabled False a3cccb1d-fea9-4b56-8eab-a7</span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -435,7 +474,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/06/09/hello-world/">http://example.com/2023/06/09/hello-world/</a>
+                    <a href="http://example.com/2023/04/30/Ceilometer%20%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">http://example.com/2023/04/30/Ceilometer%20%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -553,13 +592,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/06/09/openstack%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
+                <a href="/2023/04/30/Cloudkitty%20%E8%AE%A1%E8%B4%B9%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="虚拟机中搭建openstack平台">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Cloudkitty 计费服务">
                         
-                        <span class="card-title">虚拟机中搭建openstack平台</span>
+                        <span class="card-title">Cloudkitty 计费服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -570,7 +609,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-30
                         </span>
                         <span class="publish-author">
                             
@@ -590,13 +629,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/30/OpenStack%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                <a href="/2023/04/30/Barbican%20%E7%A7%98%E9%92%A5%E7%AE%A1%E7%90%86%E5%99%A8%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Openstack常用命令">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Barbican 密钥管理器">
                         
-                        <span class="card-title">Openstack常用命令</span>
+                        <span class="card-title">Barbican 密钥管理器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

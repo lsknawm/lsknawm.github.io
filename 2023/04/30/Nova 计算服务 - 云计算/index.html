@@ -1,0 +1,1142 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="🛶Nova 计算服务, Hexo">
+    <meta name="description" content="# 🛶Nova 计算服务# nova 的作用
+计算服务是 openstack 最核心的服务之一，负责维护和管理云环境的计算资源，它在 openstack 项目中代号是 nova。
+Nova 自身并没有提供任何虚拟化能力，它提供计算服务，使">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>🛶Nova 计算服务 | Hexo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hexo</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hexo</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">🛶Nova 计算服务</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-04-30
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="🛶Nova-计算服务"><a href="#🛶Nova-计算服务" class="headerlink" title="# 🛶Nova 计算服务"></a><a href="#%F0%9F%9B%B6nova%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1">#</a> 🛶Nova 计算服务</h2><h3 id="nova-的作用"><a href="#nova-的作用" class="headerlink" title="# nova 的作用"></a><a href="#nova%E7%9A%84%E4%BD%9C%E7%94%A8">#</a> nova 的作用</h3><ul>
+<li>计算服务是 openstack 最核心的服务之一，负责维护和管理云环境的计算资源，它在 openstack 项目中代号是 nova。</li>
+<li>Nova 自身并没有提供任何虚拟化能力，它提供计算服务，使用不同的虚拟化驱动来与底层支持 &#x3D;&#x3D;Hypervisor(虚拟机管理器)&#x3D;&#x3D; 进行交互。所有的计算实例 (虚拟服务器) 由 Nova 进行生命周期的调度管理(启动、挂起、停止、删除等)</li>
+<li>Nova 需要 keystone、glance、neutron、cinder 和 swift 等其他服务的支持，能与这些服务集成，实现如加密磁盘、裸金属计算实例等。</li>
+</ul>
+<h3 id="系统架构"><a href="#系统架构" class="headerlink" title="# 系统架构"></a><a href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">#</a> 系统架构</h3><p>DB: 用于数据存储的 sql 数据库。 API: 用于接收 HTTP 请求、转换命令、通过消息队列或 HTTP 与其他组件通信的 nova 组件。 Scheduler: 用于决定哪台计算节点承载计算实例的 nova 调度器。 Network: 管理 IP 转发、网桥或虚拟局域网的 nova 网络组件。 Compute: 管理虚拟机管理器与虚拟机之间通信的 nova 计算组件。 Conductor: 处理需要协调 (构建虚拟机或调整虚拟机大小) 的请求，或者处理对象转换</p>
+<h3 id="内部组件介绍"><a href="#内部组件介绍" class="headerlink" title="# 内部组件介绍"></a><a href="#%E5%86%85%E9%83%A8%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D">#</a> 内部组件介绍</h3><h4 id="nova-api"><a href="#nova-api" class="headerlink" title="# nova-api"></a><a href="#nova-api">#</a> nova-api</h4><p>AsPI 是客户访问 nova 的 http 接口，它由 nova-api 服务实现，nova-api 服务接受和响应来自最终用户计算 api 的请求。作为 openstack 对外服务的最主要接口，nova-api 提供了一个集中的可以查询所有 api 的端点。</p>
+<p>所有对 nova 的请求都首先由 nova-api 处理。API 提供 REST 标准调用服务，便于与第三方系统集成。</p>
+<p>最终用户不会直接该送 RESTful API 请求而是通过 openstack 命令行、dashbord 和其他需要跟 nova 的组件使用这些 API。</p>
+<p>NOva-api 对接受到的 HTTP API 请求做以下处理： （1）检查客户端传入的参数是否合法有效 （2）调用 nova 其他服务来处理客户端 HTTP 请求 （3）格式化 nova 其他子服务返回结果并返回给客户端</p>
+<p>nova-api 是外部访问并使用 nova 提供的各种服务的唯一途径，也是客户端和 nova 之间的中间层。</p>
+<h4 id="Scheduler"><a href="#Scheduler" class="headerlink" title="# Scheduler"></a><a href="#scheduler">#</a> Scheduler</h4><p>Scheduler 可译为调度器，由 nova-scheduler 服务实现，主要解决的是如何选择在哪个计算节点上启动实例的问题。它可以应用多种规则，如果考虑内存使用率、cpu 负载率、cpu 架构（Intel&#x2F;amd）等多种因素，根据一定的算法，确定虚拟机实例能够运行在哪一台计算节点。NOva-scherduler 服务会从队列中接受虚拟机实例的请求，通过读取数据库的内容，从可用资源池中选择最合适的计算节点来创建新的虚拟机实例</p>
+<h4 id="Nova-compute"><a href="#Nova-compute" class="headerlink" title="# Nova-compute"></a><a href="#nova-compute">#</a> Nova-compute</h4><p>Nova-compute 处理管理实例生命周期。他们通过 Message Queue 接收实例生命周期管理的请求，并承担操作工作。在一个典型生产环境的云部署中有一些 compute workers。一个实例部署在哪个可用的 compute worker 上取决于调度算法。</p>
+<h4 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="# Rabbitmq"></a><a href="#rabbitmq">#</a> Rabbitmq</h4><p>OpenStack 节点之间通过消息队列使用 AMQP（Advanced Message Queue Protocol）完成通信。Nova 通过异步调用请求响应，使用回调函数在收到响应时触发。因为使用了异步通信，不会有用户长时间卡在等待状态。这是有效的，因为许多 API 调用预期的行为都非常耗时，例如加载一个实例，或者上传一个镜像。</p>
+<h4 id="Nova-conductor"><a href="#Nova-conductor" class="headerlink" title="# Nova-conductor"></a><a href="#nova-conductor">#</a> Nova-conductor</h4><p>nova-conductor 是 nova-compute 与数据库的中间件，nova-compute 对数据库的 CRUD 操作都借由 nova-conductor 完成，nova-conductor 通过 rpc 对外提供 API 服务。nova-conductor 默认采用多进程运行，在不配置 [conductor]worker 的情况下，进程数会与服务器的逻辑 CPU 数一致。</p>
+<h2 id="🧶Nova-参数"><a href="#🧶Nova-参数" class="headerlink" title="# 🧶Nova 参数"></a><a href="#%F0%9F%A7%B6nova%E5%8F%82%E6%95%B0">#</a> 🧶Nova 参数</h2><h3 id="1-查看-flavor-列表"><a href="#1-查看-flavor-列表" class="headerlink" title="# 1. 查看 flavor 列表"></a><a href="#_1-%E6%9F%A5%E7%9C%8Bflavor%E5%88%97%E8%A1%A8">#</a> 1. 查看 flavor 列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor list</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| ID                                   | Name      |  RAM | Disk | Ephemeral | VCPUs | Is Public |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| 1                                    | m1.middle | 1024 |    1 |         0 |     2 | True      |</span><br><span class="line">| 2                                    | m1.small  | 1024 |   20 |         0 |     1 | True      |</span><br><span class="line">| 3                                    | m1.medium | 2048 |   40 |         0 |     2 | True      |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建-flavor"><a href="#2-创建-flavor" class="headerlink" title="# 2. 创建 flavor"></a><a href="#_2-%E5%88%9B%E5%BB%BAflavor">#</a> 2. 创建 flavor</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor create </span><br><span class="line">usage: openstack flavor create [-h] [-f &#123;json,shell,table,value,yaml&#125;]</span><br><span class="line">                               [-c COLUMN] [--max-width &lt;integer&gt;]</span><br><span class="line">                               [--fit-width] [--print-empty] [--noindent]</span><br><span class="line">                               [--prefix PREFIX] [--id &lt;id&gt;] [--ram &lt;size-mb&gt;]</span><br><span class="line">                               [--disk &lt;size-gb&gt;] [--ephemeral &lt;size-gb&gt;]</span><br><span class="line">                               [--swap &lt;size-mb&gt;] [--vcpus &lt;vcpus&gt;]</span><br><span class="line">                               [--rxtx-factor &lt;factor&gt;] [--public | --private]</span><br><span class="line">                               [--property &lt;key=value&gt;] [--project &lt;project&gt;]</span><br><span class="line">                               [--description &lt;description&gt;]</span><br><span class="line">                               [--project-domain &lt;project-domain&gt;]</span><br><span class="line">                               &lt;flavor-name&gt;</span><br><span class="line">可选参数：</span><br><span class="line">  -h, --help 显示此帮助信息并退出</span><br><span class="line">  --id &lt;id&gt; 唯一的风味 ID； &#x27;auto&#x27; 创建一个 UUID（默认值：auto）</span><br><span class="line">  --ram &lt;size-mb&gt; 内存大小，以 MB 为单位（默认 256M）</span><br><span class="line">  --disk &lt;size-gb&gt; 以 GB 为单位的磁盘大小（默认 0G）</span><br><span class="line">  --ephemeral &lt;size-gb&gt;以 GB 为单位的临时磁盘大小（默认 0G）</span><br><span class="line">  --swap &lt;size-mb&gt; 以 MB 为单位的额外交换空间大小（默认 0M）</span><br><span class="line">  --vcpus &lt;vcpus&gt; vcpus 的数量（默认为 1）</span><br><span class="line">  --rxtx-factor &lt;因子&gt; RX/TX 因子（默认 1.0）</span><br><span class="line">  --public Flavor 可用于其他项目（默认）</span><br><span class="line">  --private Flavor 不适用于其他项目</span><br><span class="line">  --property &lt;key=value&gt;为此风味添加的属性（重复选项以设置多个属性）</span><br><span class="line">  --project &lt;project&gt; 允许 &lt;project&gt; 访问私有风格（名称或 ID）（必须与 --private 选项一起使用）</span><br><span class="line">  --description &lt;description&gt; 风味描述。（受 API 版本 2.55 支持 - &#x27;2.latest&#x27;</span><br><span class="line">  --project-domain &lt;project-domain&gt; 项目所属的域（名称或 ID）。这可以在项目名称之间存在冲突的情况下使用。</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-查看-flavor-详情"><a href="#3-查看-flavor-详情" class="headerlink" title="# 3. 查看 flavor 详情"></a><a href="#_3-%E6%9F%A5%E7%9C%8Bflavor%E8%AF%A6%E6%83%85">#</a> 3. 查看 flavor 详情</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor show</span><br><span class="line">usage: openstack flavor show [-h] [-f &#123;json,shell,table,value,yaml&#125;]</span><br><span class="line">                             [-c COLUMN] [--max-width &lt;integer&gt;] [--fit-width]</span><br><span class="line">                             [--print-empty] [--noindent] [--prefix PREFIX]</span><br><span class="line">                             &lt;flavor&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-删除-flavor"><a href="#4-删除-flavor" class="headerlink" title="# 4. 删除 flavor"></a><a href="#_4-%E5%88%A0%E9%99%A4flavor">#</a> 4. 删除 flavor</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor delete</span><br><span class="line">usage: openstack flavor delete [-h] &lt;flavor&gt; [&lt;flavor&gt; ...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-创建虚拟机"><a href="#5-创建虚拟机" class="headerlink" title="# 5. 创建虚拟机"></a><a href="#_5-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA">#</a> 5. 创建虚拟机</h3><p>创建虚拟机 需要 image 、 flavor 、network</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server create </span><br><span class="line">usage: openstack server create [-h] [-f &#123;json,shell,table,value,yaml&#125;]</span><br><span class="line">                               [-c COLUMN] [--max-width &lt;integer&gt;]</span><br><span class="line">                               [--fit-width] [--print-empty] [--noindent]</span><br><span class="line">                               [--prefix PREFIX]</span><br><span class="line">                               (--image &lt;image&gt; | --image-property &lt;key=value&gt; | --volume &lt;volume&gt;)</span><br><span class="line">                               --flavor &lt;flavor&gt;</span><br><span class="line">                               [--security-group &lt;security-group&gt;]</span><br><span class="line">                               [--key-name &lt;key-name&gt;]</span><br><span class="line">                               [--property &lt;key=value&gt;]</span><br><span class="line">                               [--file &lt;dest-filename=source-filename&gt;]</span><br><span class="line">                               [--user-data &lt;user-data&gt;]</span><br><span class="line">                               [--description &lt;description&gt;]</span><br><span class="line">                               [--availability-zone &lt;zone-name&gt;]</span><br><span class="line">                               [--host &lt;host&gt;]</span><br><span class="line">                               [--hypervisor-hostname &lt;hypervisor-hostname&gt;]</span><br><span class="line">                               [--boot-from-volume &lt;volume-size&gt;]</span><br><span class="line">                               [--block-device-mapping &lt;dev-name=mapping&gt;]</span><br><span class="line">                               [--nic &lt;net-id=net-uuid,v4-fixed-ip=ip-addr,v6-fixed-ip=ip-addr,port-id=port-uuid,auto,none&gt;]</span><br><span class="line">                               [--network &lt;network&gt;] [--port &lt;port&gt;]</span><br><span class="line">                               [--hint &lt;key=value&gt;]</span><br><span class="line">                               [--config-drive &lt;config-drive-volume&gt;|True]</span><br><span class="line">                               [--min &lt;count&gt;] [--max &lt;count&gt;] [--wait]</span><br><span class="line">                               &lt;server-name&gt;</span><br><span class="line">可选参数：</span><br><span class="line">  -h, --help 显示此帮助信息并退出</span><br><span class="line">  --image &lt;image&gt; 从此映像创建服务器启动盘（名称或 ID）</span><br><span class="line">  --image-property &lt;key=value&gt; 要匹配的图片属性</span><br><span class="line">  --volume &lt;volume&gt; 使用此卷作为引导磁盘（名称或 ID）创建服务器。</span><br><span class="line">  --flavor &lt;flavor&gt; 使用该风格（名称或 ID）创建服务器</span><br><span class="line">  --security-group &lt;security-group&gt; 分配给此服务器的安全组（名称或 ID）（重复选项以设置多个组）</span><br><span class="line">  --key-name &lt;key-name&gt; 要注入此服务器的密钥对（可选扩展）</span><br><span class="line">  --property &lt;key=value&gt; 在此服务器上设置属性（重复选项以设置多个值）</span><br><span class="line">  --file &lt;dest-filename=source-filename&gt; 引导前注入映像的文件（重复选项以设置多个文件）</span><br><span class="line">  --user-data &lt;user-data&gt; 从元数据服务器提供的用户数据文件</span><br><span class="line">  --description &lt;description&gt; 设置服务器描述（--os-compute-api-version 2.19 或以上版本支持）</span><br><span class="line">  --availability-zone &lt;zone-name&gt; 选择服务器的可用区</span><br><span class="line">  --host &lt;host&gt; 请求主机创建服务器。默认情况下仅管理员。 （由 --os-compute-api-version 2.74 或更高版本支持）</span><br><span class="line">  --hypervisor-hostname &lt;hypervisor-hostname&gt; 请求的管理程序主机名来创建服务器。默认情况下仅管理员。 （由 --os-compute-api-version 2.74 或更高版本支持）</span><br><span class="line">  --boot-from-volume &lt;volume-size&gt;当与 ``--image`` 或 ``--image-property`` 选项结合使用时，此选项会自动创建一个块设备映射，其引导索引为0 并告诉计算服务从指定的映像创建给定大小（以 GB 为单位）的卷，并将其用作服务器的根磁盘。删除服务器时不会删除根卷。此选项与 --volume 选项互斥。</span><br><span class="line"> </span><br><span class="line">  --nic &lt;net-id=net-uuid,v4-fixed-ip=ip-addr,v6-fixed-ip=ip-addr,port-id=port-uuid,auto,none&gt; 在服务器上创建网卡.多次指定选项以创建多个 NIC。必须提供 net-id 或 port-id，但不能同时提供。 net-id：使用此 UUID 将 NIC 连接到网络，port-id：使用此 UUID 将 NIC 连接到端口，v4-fixed-ip：NIC 的 IPv4 固定地址（可选），v6-fixed-ip：NIC 的 IPv6 固定地址(可选), none: (v2.37+) 没有附加网络, auto: (v2.37+) 计算服务将自动分配网络。指定 auto 或 none 的 --nic 不能与任何其他 --nic 值一起使用。</span><br><span class="line">  --network &lt;network&gt; 在服务器上创建一个 NIC 并将其连接到网络。多次指定选项以创建多个 NIC。这是 &#x27;--nic net-id=&lt;network&gt;&#x27; 参数的包装器，它为将新服务器连接到给定网络的标准用例提供了简单的语法。</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-查看虚拟机详情"><a href="#6-查看虚拟机详情" class="headerlink" title="# 6. 查看虚拟机详情"></a><a href="#_6-%E6%9F%A5%E7%9C%8B%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AF%A6%E6%83%85">#</a> 6. 查看虚拟机详情</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server show</span><br><span class="line">usage: openstack server show [-h] [-f &#123;json,shell,table,value,yaml&#125;]</span><br><span class="line">                             [-c COLUMN] [--max-width &lt;integer&gt;] [--fit-width]</span><br><span class="line">                             [--print-empty] [--noindent] [--prefix PREFIX]</span><br><span class="line">                             [--diagnostics]</span><br><span class="line">                             &lt;server&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-删除虚拟机"><a href="#7-删除虚拟机" class="headerlink" title="# 7. 删除虚拟机"></a><a href="#_7-%E5%88%A0%E9%99%A4%E8%99%9A%E6%8B%9F%E6%9C%BA">#</a> 7. 删除虚拟机</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server delete</span><br><span class="line">usage: openstack server delete [-h] [--wait] &lt;server&gt; [&lt;server&gt; ...]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nova-基础运维"><a href="#Nova-基础运维" class="headerlink" title="# Nova 基础运维"></a><a href="#nova%E5%9F%BA%E7%A1%80%E8%BF%90%E7%BB%B4">#</a> Nova 基础运维</h2><h3 id="🎄创建-flavor"><a href="#🎄创建-flavor" class="headerlink" title="# 🎄创建 flavor"></a><a href="#%F0%9F%8E%84%E5%88%9B%E5%BB%BAflavor">#</a> 🎄创建 flavor</h3><p>创一个名字为 test id 为 520 ram 为 1024 disk 为 5 vcpu 为 1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor create test --id 520 --ram 1024 --disk 5 --vcpu 1</span><br><span class="line">+----------------------------+-------+</span><br><span class="line">| Field                      | Value |</span><br><span class="line">+----------------------------+-------+</span><br><span class="line">| OS-FLV-DISABLED:disabled   | False |</span><br><span class="line">| OS-FLV-EXT-DATA:ephemeral  | 0     |</span><br><span class="line">| disk                       | 5     |</span><br><span class="line">| id                         | 520   |</span><br><span class="line">| name                       | test  |</span><br><span class="line">| os-flavor-access:is_public | True  |</span><br><span class="line">| properties                 |       |</span><br><span class="line">| ram                        | 1024  |</span><br><span class="line">| rxtx_factor                | 1.0   |</span><br><span class="line">| swap                       |       |</span><br><span class="line">| vcpus                      | 1     |</span><br><span class="line">+----------------------------+-------+</span><br><span class="line"></span><br><span class="line">-----------------------------------二选一--------------------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova flavor-create test 520 1024 5 1</span><br><span class="line">+-----+------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br><span class="line">| ID  | Name | Memory_MiB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public | Description |</span><br><span class="line">+-----+------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br><span class="line">| 520 | test | 1024       | 5    | 0         | 0    | 1     | 1.0         | True      | -           |</span><br><span class="line">+-----+------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="🎓-查看-flavor"><a href="#🎓-查看-flavor" class="headerlink" title="# 🎓 查看 flavor"></a><a href="#%F0%9F%8E%93-%E6%9F%A5%E7%9C%8Bflavor">#</a> 🎓 查看 flavor</h3><p>查看 flavor 列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor list </span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| ID                                   | Name      |  RAM | Disk | Ephemeral | VCPUs | Is Public |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| 1                                    | m1.middle | 1024 |    1 |         0 |     2 | True      |</span><br><span class="line">| 1234                                 | exam      | 1024 |   20 |         0 |     2 | True      |</span><br><span class="line">| 2                                    | m1.small  | 1024 |   20 |         0 |     1 | True      |</span><br><span class="line">| 3                                    | m1.medium | 2048 |   40 |         0 |     2 | True      |</span><br><span class="line">| 520                                  | test      | 1024 |    5 |         0 |     1 | True      |</span><br><span class="line">| a643a343-94b5-4787-9287-9540e8449d00 | aa        | 1024 |    2 |         0 |     1 | True      |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line"></span><br><span class="line">-------------------------------------二选一------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova flavor-list</span><br><span class="line">+--------------------------------------+-----------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br><span class="line">| ID                                   | Name      | Memory_MiB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public | Description |</span><br><span class="line">+--------------------------------------+-----------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br><span class="line">| 1                                    | m1.middle | 1024       | 1    | 0         | 0    | 2     | 1.0         | True      | -           |</span><br><span class="line">| 1234                                 | exam      | 1024       | 20   | 0         | 0    | 2     | 1.0         | True      | -           |</span><br><span class="line">| 2                                    | m1.small  | 1024       | 20   | 0         | 0    | 1     | 1.0         | True      | -           |</span><br><span class="line">| 3                                    | m1.medium | 2048       | 40   | 0         | 0    | 2     | 1.0         | True      | -           |</span><br><span class="line">| 520                                  | test      | 1024       | 5    | 0         | 0    | 1     | 1.0         | True      | -           |</span><br><span class="line">| a643a343-94b5-4787-9287-9540e8449d00 | aa        | 1024       | 2    | 0         | 0    | 1     | 1.0         | True      | -           |</span><br><span class="line">+--------------------------------------+-----------+------------+------+-----------+------+-------+-------------+-----------+-------------+</span><br></pre></td></tr></table></figure>
+
+<p>查看一个名为 test 的 flavor</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor show test</span><br><span class="line">+----------------------------+-------+</span><br><span class="line">| Field                      | Value |</span><br><span class="line">+----------------------------+-------+</span><br><span class="line">| OS-FLV-DISABLED:disabled   | False |</span><br><span class="line">| OS-FLV-EXT-DATA:ephemeral  | 0     |</span><br><span class="line">| access_project_ids         | None  |</span><br><span class="line">| disk                       | 5     |</span><br><span class="line">| id                         | 520   |</span><br><span class="line">| name                       | test  |</span><br><span class="line">| os-flavor-access:is_public | True  |</span><br><span class="line">| properties                 |       |</span><br><span class="line">| ram                        | 1024  |</span><br><span class="line">| rxtx_factor                | 1.0   |</span><br><span class="line">| swap                       |       |</span><br><span class="line">| vcpus                      | 1     |</span><br><span class="line">+----------------------------+-------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="🎃删除-flavor"><a href="#🎃删除-flavor" class="headerlink" title="# 🎃删除 flavor"></a><a href="#%F0%9F%8E%83%E5%88%A0%E9%99%A4flavor">#</a> 🎃删除 flavor</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack flavor delete  test</span><br></pre></td></tr></table></figure>
+
+<h3 id="🏀创建虚拟机"><a href="#🏀创建虚拟机" class="headerlink" title="# 🏀创建虚拟机"></a><a href="#%F0%9F%8F%80%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA">#</a> 🏀创建虚拟机</h3><p>创建虚拟机需要 image ， flavor ， network （network 需要绑定子网）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">查看image ，flavor，network</span><br><span class="line">[root@controller ~]# openstack image list ;openstack flavor list;openstack network list</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">| ID                                   | Name   | Status |</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">| d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a | cirros | active |</span><br><span class="line">+--------------------------------------+--------+--------+</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| ID                                   | Name      |  RAM | Disk | Ephemeral | VCPUs | Is Public |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">| 1                                    | m1.middle | 1024 |    1 |         0 |     2 | True      |</span><br><span class="line">| 1234                                 | exam      | 1024 |   20 |         0 |     2 | True      |</span><br><span class="line">| 2                                    | m1.small  | 1024 |   20 |         0 |     1 | True      |</span><br><span class="line">| 3                                    | m1.medium | 2048 |   40 |         0 |     2 | True      |</span><br><span class="line">| 520                                  | test      | 1024 |    5 |         0 |     1 | True      |</span><br><span class="line">| a643a343-94b5-4787-9287-9540e8449d00 | aa        | 1024 |    2 |         0 |     1 | True      |</span><br><span class="line">+--------------------------------------+-----------+------+------+-----------+-------+-----------+</span><br><span class="line">+--------------------------------------+--------+--------------------------------------+</span><br><span class="line">| ID                                   | Name   | Subnets                              |</span><br><span class="line">+--------------------------------------+--------+--------------------------------------+</span><br><span class="line">| d5b347af-8ba2-47d2-bd2d-684ded67c029 | intnet | 06f06f8e-de3f-474d-93ff-628e24ccd052 |</span><br><span class="line">+--------------------------------------+--------+--------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>创建一个名为 test 的虚拟机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server create  --image cirros --flavor 1 --nic net-id=d5b347af-8ba2-47d2-bd2d-684ded67c029 test    </span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line">| Field                               | Value                                         |</span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                   | MANUAL                                        |</span><br><span class="line">| OS-EXT-AZ:availability_zone         |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                | None                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name       |                                               |</span><br><span class="line">| OS-EXT-STS:power_state              | NOSTATE                                       |</span><br><span class="line">| OS-EXT-STS:task_state               | scheduling                                    |</span><br><span class="line">| OS-EXT-STS:vm_state                 | building                                      |</span><br><span class="line">| OS-SRV-USG:launched_at              | None                                          |</span><br><span class="line">| OS-SRV-USG:terminated_at            | None                                          |</span><br><span class="line">| accessIPv4                          |                                               |</span><br><span class="line">| accessIPv6                          |                                               |</span><br><span class="line">| addresses                           |                                               |</span><br><span class="line">| adminPass                           | 5QhPQFT9qBSh                                  |</span><br><span class="line">| config_drive                        |                                               |</span><br><span class="line">| created                             | 2022-10-17T01:03:17Z                          |</span><br><span class="line">| flavor                              | m1.middle (1)                                 |</span><br><span class="line">| hostId                              |                                               |</span><br><span class="line">| id                                  | 8d2f5e03-d502-47c1-befd-e30c4bc1ccb3          |</span><br><span class="line">| image                               | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a) |</span><br><span class="line">| key_name                            | None                                          |</span><br><span class="line">| name                                | test                                          |</span><br><span class="line">| progress                            | 0                                             |</span><br><span class="line">| project_id                          | 7a05dd150ee747198431b7122470aae3              |</span><br><span class="line">| properties                          |                                               |</span><br><span class="line">| security_groups                     | name=&#x27;default&#x27;                                |</span><br><span class="line">| status                              | BUILD                                         |</span><br><span class="line">| updated                             | 2022-10-17T01:03:17Z                          |</span><br><span class="line">| user_id                             | cf3c1636180f443f87f0724a48b61fe3              |</span><br><span class="line">| volumes_attached                    |                                               |</span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line"></span><br><span class="line">----------------------------------------二选一------------------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova boot  --image cirros --flavor 1 --nic net-id=d5b347af-8ba2-47d2-bd2d-684ded67c029 test</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br><span class="line">| Property                             | Value                                         |</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                    | MANUAL                                        |</span><br><span class="line">| OS-EXT-AZ:availability_zone          |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                 | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:hostname             | test                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname  | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name        |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:kernel_id            |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:launch_index         | 0                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:ramdisk_id           |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:reservation_id       | r-irh0cxj4                                    |</span><br><span class="line">| OS-EXT-SRV-ATTR:root_device_name     | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:user_data            | -                                             |</span><br><span class="line">| OS-EXT-STS:power_state               | 0                                             |</span><br><span class="line">| OS-EXT-STS:task_state                | scheduling                                    |</span><br><span class="line">| OS-EXT-STS:vm_state                  | building                                      |</span><br><span class="line">| OS-SRV-USG:launched_at               | -                                             |</span><br><span class="line">| OS-SRV-USG:terminated_at             | -                                             |</span><br><span class="line">| accessIPv4                           |                                               |</span><br><span class="line">| accessIPv6                           |                                               |</span><br><span class="line">| adminPass                            | g3jHkNaREFzQ                                  |</span><br><span class="line">| config_drive                         |                                               |</span><br><span class="line">| created                              | 2022-10-17T01:04:46Z                          |</span><br><span class="line">| description                          | -                                             |</span><br><span class="line">| flavor:disk                          | 1                                             |</span><br><span class="line">| flavor:ephemeral                     | 0                                             |</span><br><span class="line">| flavor:extra_specs                   | &#123;&#125;                                            |</span><br><span class="line">| flavor:original_name                 | m1.middle                                     |</span><br><span class="line">| flavor:ram                           | 1024                                          |</span><br><span class="line">| flavor:swap                          | 0                                             |</span><br><span class="line">| flavor:vcpus                         | 2                                             |</span><br><span class="line">| hostId                               |                                               |</span><br><span class="line">| host_status                          |                                               |</span><br><span class="line">| id                                   | 6f9e6b1e-84de-40aa-abbd-e321ab19d9dc          |</span><br><span class="line">| image                                | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a) |</span><br><span class="line">| key_name                             | -                                             |</span><br><span class="line">| locked                               | False                                         |</span><br><span class="line">| locked_reason                        | -                                             |</span><br><span class="line">| metadata                             | &#123;&#125;                                            |</span><br><span class="line">| name                                 | test                                          |</span><br><span class="line">| os-extended-volumes:volumes_attached | []                                            |</span><br><span class="line">| progress                             | 0                                             |</span><br><span class="line">| security_groups                      | default                                       |</span><br><span class="line">| server_groups                        | []                                            |</span><br><span class="line">| status                               | BUILD                                         |</span><br><span class="line">| tags                                 | []                                            |</span><br><span class="line">| tenant_id                            | 7a05dd150ee747198431b7122470aae3              |</span><br><span class="line">| trusted_image_certificates           | -                                             |</span><br><span class="line">| updated                              | 2022-10-17T01:04:46Z                          |</span><br><span class="line">| user_id                              | cf3c1636180f443f87f0724a48b61fe3              |</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="💍查看虚拟机"><a href="#💍查看虚拟机" class="headerlink" title="# 💍查看虚拟机"></a><a href="#%F0%9F%92%8D%E6%9F%A5%E7%9C%8B%E8%99%9A%E6%8B%9F%E6%9C%BA">#</a> 💍查看虚拟机</h3><p>查看虚拟机列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server list            </span><br><span class="line">+--------------------------------------+------+--------+------------------+--------+-----------+</span><br><span class="line">| ID                                   | Name | Status | Networks         | Image  | Flavor    |</span><br><span class="line">+--------------------------------------+------+--------+------------------+--------+-----------+</span><br><span class="line">| 6f9e6b1e-84de-40aa-abbd-e321ab19d9dc | test | ACTIVE | intnet=10.0.0.85 | cirros | m1.middle |</span><br><span class="line">+--------------------------------------+------+--------+------------------+--------+-----------+</span><br><span class="line"></span><br><span class="line">------------------------------------二选一------------------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova list </span><br><span class="line">+--------------------------------------+------+--------+------------+-------------+------------------+</span><br><span class="line">| ID                                   | Name | Status | Task State | Power State | Networks         |</span><br><span class="line">+--------------------------------------+------+--------+------------+-------------+------------------+</span><br><span class="line">| 6f9e6b1e-84de-40aa-abbd-e321ab19d9dc | test | ACTIVE | -          | Running     | intnet=10.0.0.85 |</span><br><span class="line">+--------------------------------------+------+--------+------------+-------------+------------------+</span><br></pre></td></tr></table></figure>
+
+<p>查看 test 虚拟机详情</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server show test</span><br><span class="line">+-------------------------------------+----------------------------------------------------------+</span><br><span class="line">| Field                               | Value                                                    |</span><br><span class="line">+-------------------------------------+----------------------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                   | MANUAL                                                   |</span><br><span class="line">| OS-EXT-AZ:availability_zone         | nova                                                     |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                | compute                                                  |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname | compute                                                  |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name       | instance-00000004                                        |</span><br><span class="line">| OS-EXT-STS:power_state              | Running                                                  |</span><br><span class="line">| OS-EXT-STS:task_state               | None                                                     |</span><br><span class="line">| OS-EXT-STS:vm_state                 | active                                                   |</span><br><span class="line">| OS-SRV-USG:launched_at              | 2022-10-17T01:04:56.000000                               |</span><br><span class="line">| OS-SRV-USG:terminated_at            | None                                                     |</span><br><span class="line">| accessIPv4                          |                                                          |</span><br><span class="line">| accessIPv6                          |                                                          |</span><br><span class="line">| addresses                           | intnet=10.0.0.85                                         |</span><br><span class="line">| config_drive                        |                                                          |</span><br><span class="line">| created                             | 2022-10-17T01:04:46Z                                     |</span><br><span class="line">| flavor                              | m1.middle (1)                                            |</span><br><span class="line">| hostId                              | 65cb5e1d0ead6f6dba6c7bd184322411c577f128793ae933b49a48af |</span><br><span class="line">| id                                  | 6f9e6b1e-84de-40aa-abbd-e321ab19d9dc                     |</span><br><span class="line">| image                               | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a)            |</span><br><span class="line">| key_name                            | None                                                     |</span><br><span class="line">| name                                | test                                                     |</span><br><span class="line">| progress                            | 0                                                        |</span><br><span class="line">| project_id                          | 7a05dd150ee747198431b7122470aae3                         |</span><br><span class="line">| properties                          |                                                          |</span><br><span class="line">| security_groups                     | name=&#x27;default&#x27;                                           |</span><br><span class="line">| status                              | ACTIVE                                                   |</span><br><span class="line">| updated                             | 2022-10-17T01:04:56Z                                     |</span><br><span class="line">| user_id                             | cf3c1636180f443f87f0724a48b61fe3                         |</span><br><span class="line">| volumes_attached                    |                                                          |</span><br><span class="line">+-------------------------------------+----------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">--------------------------------------二选一--------------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova show test</span><br><span class="line">+--------------------------------------+----------------------------------------------------------+</span><br><span class="line">| Property                             | Value                                                    |</span><br><span class="line">+--------------------------------------+----------------------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                    | MANUAL                                                   |</span><br><span class="line">| OS-EXT-AZ:availability_zone          | nova                                                     |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                 | compute                                                  |</span><br><span class="line">| OS-EXT-SRV-ATTR:hostname             | test                                                     |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname  | compute                                                  |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name        | instance-00000004                                        |</span><br><span class="line">| OS-EXT-SRV-ATTR:kernel_id            |                                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:launch_index         | 0                                                        |</span><br><span class="line">| OS-EXT-SRV-ATTR:ramdisk_id           |                                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:reservation_id       | r-irh0cxj4                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:root_device_name     | /dev/vda                                                 |</span><br><span class="line">| OS-EXT-SRV-ATTR:user_data            | -                                                        |</span><br><span class="line">| OS-EXT-STS:power_state               | 1                                                        |</span><br><span class="line">| OS-EXT-STS:task_state                | -                                                        |</span><br><span class="line">| OS-EXT-STS:vm_state                  | active                                                   |</span><br><span class="line">| OS-SRV-USG:launched_at               | 2022-10-17T01:04:56.000000                               |</span><br><span class="line">| OS-SRV-USG:terminated_at             | -                                                        |</span><br><span class="line">| accessIPv4                           |                                                          |</span><br><span class="line">| accessIPv6                           |                                                          |</span><br><span class="line">| config_drive                         |                                                          |</span><br><span class="line">| created                              | 2022-10-17T01:04:46Z                                     |</span><br><span class="line">| description                          | -                                                        |</span><br><span class="line">| flavor:disk                          | 1                                                        |</span><br><span class="line">| flavor:ephemeral                     | 0                                                        |</span><br><span class="line">| flavor:extra_specs                   | &#123;&#125;                                                       |</span><br><span class="line">| flavor:original_name                 | m1.middle                                                |</span><br><span class="line">| flavor:ram                           | 1024                                                     |</span><br><span class="line">| flavor:swap                          | 0                                                        |</span><br><span class="line">| flavor:vcpus                         | 2                                                        |</span><br><span class="line">| hostId                               | 65cb5e1d0ead6f6dba6c7bd184322411c577f128793ae933b49a48af |</span><br><span class="line">| host_status                          | UP                                                       |</span><br><span class="line">| id                                   | 6f9e6b1e-84de-40aa-abbd-e321ab19d9dc                     |</span><br><span class="line">| image                                | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a)            |</span><br><span class="line">| intnet network                       | 10.0.0.85                                                |</span><br><span class="line">| key_name                             | -                                                        |</span><br><span class="line">| locked                               | False                                                    |</span><br><span class="line">| locked_reason                        | -                                                        |</span><br><span class="line">| metadata                             | &#123;&#125;                                                       |</span><br><span class="line">| name                                 | test                                                     |</span><br><span class="line">| os-extended-volumes:volumes_attached | []                                                       |</span><br><span class="line">| progress                             | 0                                                        |</span><br><span class="line">| security_groups                      | default                                                  |</span><br><span class="line">| server_groups                        | []                                                       |</span><br><span class="line">| status                               | ACTIVE                                                   |</span><br><span class="line">| tags                                 | []                                                       |</span><br><span class="line">| tenant_id                            | 7a05dd150ee747198431b7122470aae3                         |</span><br><span class="line">| trusted_image_certificates           | -                                                        |</span><br><span class="line">| updated                              | 2022-10-17T01:04:56Z                                     |</span><br><span class="line">| user_id                              | cf3c1636180f443f87f0724a48b61fe3                         |</span><br><span class="line">+--------------------------------------+----------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="🏐删除虚拟机"><a href="#🏐删除虚拟机" class="headerlink" title="# 🏐删除虚拟机"></a><a href="#%F0%9F%8F%90%E5%88%A0%E9%99%A4%E8%99%9A%E6%8B%9F%E6%9C%BA">#</a> 🏐删除虚拟机</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server delete test</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova  delete test</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nova-高级运维"><a href="#Nova-高级运维" class="headerlink" title="# Nova 高级运维"></a><a href="#nova%E9%AB%98%E7%BA%A7%E8%BF%90%E7%BB%B4">#</a> Nova 高级运维</h2><h3 id="📌修改实例配额"><a href="#📌修改实例配额" class="headerlink" title="# 📌修改实例配额"></a><a href="#%F0%9F%93%8C%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BE%8B%E9%85%8D%E9%A2%9D">#</a> 📌修改实例配额</h3><p>修改云平台中默认每个 tenant 的实例配额为 20 个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# nova quota-class-update default --instances 20</span><br><span class="line">[root@controller ~]# nova quota-defaults</span><br><span class="line">+----------------------+-------+</span><br><span class="line">| Quota                | Limit |</span><br><span class="line">+----------------------+-------+</span><br><span class="line">| instances            | 20    |</span><br><span class="line">| cores                | 20    |</span><br><span class="line">| ram                  | 51200 |</span><br><span class="line">| metadata_items       | 128   |</span><br><span class="line">| key_pairs            | 100   |</span><br><span class="line">| server_groups        | 10    |</span><br><span class="line">| server_group_members | 10    |</span><br><span class="line">+----------------------+-------+</span><br></pre></td></tr></table></figure>
+
+<p>将 admin 租户的实例配额提升到 20</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack project list</span><br><span class="line">[root@controller ~]# nova quota-update --instances 20 7a05dd150ee747198431b7122470aae3</span><br><span class="line">[root@controller ~]# nova quota-show --user admin</span><br><span class="line">+----------------------+-------+</span><br><span class="line">| Quota                | Limit |</span><br><span class="line">+----------------------+-------+</span><br><span class="line">| instances            | 20    |</span><br><span class="line">| cores                | 20    |</span><br><span class="line">| ram                  | 51200 |</span><br><span class="line">| metadata_items       | 128   |</span><br><span class="line">| key_pairs            | 100   |</span><br><span class="line">| server_groups        | 10    |</span><br><span class="line">| server_group_members | 10    |</span><br><span class="line">+----------------------+-------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="📌云主机管理"><a href="#📌云主机管理" class="headerlink" title="# 📌云主机管理"></a><a href="#%F0%9F%93%8C%E4%BA%91%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86">#</a> 📌云主机管理</h3><p>在提供 OpenStack 私有云平台，创建一台云主机</p>
+<p>云主机名为 vm，镜像使用 cirros、云主机类型 m1.middle</p>
+<p>然后创建一块大小为 2G 的云硬盘，命名为 block，并挂载到该云主机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack server create --image cirros --flavor m1.middle --nic net-id=d5b347af-8ba2-47d2-bd2d-684ded67c029 vm</span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line">| Field                               | Value                                         |</span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                   | MANUAL                                        |</span><br><span class="line">| OS-EXT-AZ:availability_zone         |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                | None                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                          |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name       |                                               |</span><br><span class="line">| OS-EXT-STS:power_state              | NOSTATE                                       |</span><br><span class="line">| OS-EXT-STS:task_state               | scheduling                                    |</span><br><span class="line">| OS-EXT-STS:vm_state                 | building                                      |</span><br><span class="line">| OS-SRV-USG:launched_at              | None                                          |</span><br><span class="line">| OS-SRV-USG:terminated_at            | None                                          |</span><br><span class="line">| accessIPv4                          |                                               |</span><br><span class="line">| accessIPv6                          |                                               |</span><br><span class="line">| addresses                           |                                               |</span><br><span class="line">| adminPass                           | Zxqv74BDjiXo                                  |</span><br><span class="line">| config_drive                        |                                               |</span><br><span class="line">| created                             | 2022-10-16T11:00:36Z                          |</span><br><span class="line">| flavor                              | m1.middle (1)                                 |</span><br><span class="line">| hostId                              |                                               |</span><br><span class="line">| id                                  | de590475-87bc-46f9-bdf5-069ddaa6c6b7          |</span><br><span class="line">| image                               | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a) |</span><br><span class="line">| key_name                            | None                                          |</span><br><span class="line">| name                                | vm                                            |</span><br><span class="line">| progress                            | 0                                             |</span><br><span class="line">| project_id                          | 7a05dd150ee747198431b7122470aae3              |</span><br><span class="line">| properties                          |                                               |</span><br><span class="line">| security_groups                     | name=&#x27;default&#x27;                                |</span><br><span class="line">| status                              | BUILD                                         |</span><br><span class="line">| updated                             | 2022-10-16T11:00:36Z                          |</span><br><span class="line">| user_id                             | cf3c1636180f443f87f0724a48b61fe3              |</span><br><span class="line">| volumes_attached                    |                                               |</span><br><span class="line">+-------------------------------------+-----------------------------------------------+</span><br><span class="line"></span><br><span class="line">-----------------------------二选一-----------------------------------------------------</span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova boot --image cirros --flavor m1.middle --nic net-id=d5b347af-8ba2-47d2-bd2d-684ded67c029 vm</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br><span class="line">| Property                             | Value                                         |</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br><span class="line">| OS-DCF:diskConfig                    | MANUAL                                        |</span><br><span class="line">| OS-EXT-AZ:availability_zone          |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:host                 | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:hostname             | vm                                            |</span><br><span class="line">| OS-EXT-SRV-ATTR:hypervisor_hostname  | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:instance_name        |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:kernel_id            |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:launch_index         | 0                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:ramdisk_id           |                                               |</span><br><span class="line">| OS-EXT-SRV-ATTR:reservation_id       | r-kmcan2ek                                    |</span><br><span class="line">| OS-EXT-SRV-ATTR:root_device_name     | -                                             |</span><br><span class="line">| OS-EXT-SRV-ATTR:user_data            | -                                             |</span><br><span class="line">| OS-EXT-STS:power_state               | 0                                             |</span><br><span class="line">| OS-EXT-STS:task_state                | scheduling                                    |</span><br><span class="line">| OS-EXT-STS:vm_state                  | building                                      |</span><br><span class="line">| OS-SRV-USG:launched_at               | -                                             |</span><br><span class="line">| OS-SRV-USG:terminated_at             | -                                             |</span><br><span class="line">| accessIPv4                           |                                               |</span><br><span class="line">| accessIPv6                           |                                               |</span><br><span class="line">| adminPass                            | Xdxz6tkHagVE                                  |</span><br><span class="line">| config_drive                         |                                               |</span><br><span class="line">| created                              | 2022-10-16T11:02:12Z                          |</span><br><span class="line">| description                          | -                                             |</span><br><span class="line">| flavor:disk                          | 1                                             |</span><br><span class="line">| flavor:ephemeral                     | 0                                             |</span><br><span class="line">| flavor:extra_specs                   | &#123;&#125;                                            |</span><br><span class="line">| flavor:original_name                 | m1.middle                                     |</span><br><span class="line">| flavor:ram                           | 1024                                          |</span><br><span class="line">| flavor:swap                          | 0                                             |</span><br><span class="line">| flavor:vcpus                         | 2                                             |</span><br><span class="line">| hostId                               |                                               |</span><br><span class="line">| host_status                          |                                               |</span><br><span class="line">| id                                   | 94f7f6e7-fb0c-42f7-8308-d28a87a472da          |</span><br><span class="line">| image                                | cirros (d416a6d0-45da-4be2-b4a7-5a5ddc3d3e1a) |</span><br><span class="line">| key_name                             | -                                             |</span><br><span class="line">| locked                               | False                                         |</span><br><span class="line">| locked_reason                        | -                                             |</span><br><span class="line">| metadata                             | &#123;&#125;                                            |</span><br><span class="line">| name                                 | vm1                                           |</span><br><span class="line">| os-extended-volumes:volumes_attached | []                                            |</span><br><span class="line">| progress                             | 0                                             |</span><br><span class="line">| security_groups                      | default                                       |</span><br><span class="line">| server_groups                        | []                                            |</span><br><span class="line">| status                               | BUILD                                         |</span><br><span class="line">| tags                                 | []                                            |</span><br><span class="line">| tenant_id                            | 7a05dd150ee747198431b7122470aae3              |</span><br><span class="line">| trusted_image_certificates           | -                                             |</span><br><span class="line">| updated                              | 2022-10-16T11:02:12Z                          |</span><br><span class="line">| user_id                              | cf3c1636180f443f87f0724a48b61fe3              |</span><br><span class="line">+--------------------------------------+-----------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cinder type-create lvm </span><br><span class="line">+--------------------------------------+------+-------------+-----------+</span><br><span class="line">| ID                                   | Name | Description | Is_Public |</span><br><span class="line">+--------------------------------------+------+-------------+-----------+</span><br><span class="line">| 37b5ce0f-b44a-41d8-bad9-8b3275c6284d | lvm  | -           | True      |</span><br><span class="line">+--------------------------------------+------+-------------+-----------+</span><br><span class="line">[root@controller ~]# cinder create --name block --volume-type lvm 2</span><br><span class="line">+--------------------------------+--------------------------------------+</span><br><span class="line">| Property                       | Value                                |</span><br><span class="line">+--------------------------------+--------------------------------------+</span><br><span class="line">| attachments                    | []                                   |</span><br><span class="line">| availability_zone              | nova                                 |</span><br><span class="line">| bootable                       | false                                |</span><br><span class="line">| consistencygroup_id            | None                                 |</span><br><span class="line">| created_at                     | 2022-10-16T11:03:23.000000           |</span><br><span class="line">| description                    | None                                 |</span><br><span class="line">| encrypted                      | False                                |</span><br><span class="line">| group_id                       | None                                 |</span><br><span class="line">| id                             | 739bf931-a545-4cf4-a4b5-284d82193387 |</span><br><span class="line">| metadata                       | &#123;&#125;                                   |</span><br><span class="line">| migration_status               | None                                 |</span><br><span class="line">| multiattach                    | False                                |</span><br><span class="line">| name                           | block                                |</span><br><span class="line">| os-vol-host-attr:host          | None                                 |</span><br><span class="line">| os-vol-mig-status-attr:migstat | None                                 |</span><br><span class="line">| os-vol-mig-status-attr:name_id | None                                 |</span><br><span class="line">| os-vol-tenant-attr:tenant_id   | 7a05dd150ee747198431b7122470aae3     |</span><br><span class="line">| provider_id                    | None                                 |</span><br><span class="line">| replication_status             | None                                 |</span><br><span class="line">| service_uuid                   | None                                 |</span><br><span class="line">| shared_targets                 | True                                 |</span><br><span class="line">| size                           | 2                                    |</span><br><span class="line">| snapshot_id                    | None                                 |</span><br><span class="line">| source_volid                   | None                                 |</span><br><span class="line">| status                         | creating                             |</span><br><span class="line">| updated_at                     | None                                 |</span><br><span class="line">| user_id                        | cf3c1636180f443f87f0724a48b61fe3     |</span><br><span class="line">| volume_type                    | lvm                                  |</span><br><span class="line">+--------------------------------+--------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@controller ~]# nova volume-attach vm 739bf931-a545-4cf4-a4b5-284d82193387(硬盘id)</span><br><span class="line">+-----------------------+--------------------------------------+</span><br><span class="line">| Property              | Value                                |</span><br><span class="line">+-----------------------+--------------------------------------+</span><br><span class="line">| delete_on_termination | False                                |</span><br><span class="line">| device                | /dev/vdb                             |</span><br><span class="line">| id                    | 739bf931-a545-4cf4-a4b5-284d82193387 |</span><br><span class="line">| serverId              | de590475-87bc-46f9-bdf5-069ddaa6c6b7 |</span><br><span class="line">| tag                   | -                                    |</span><br><span class="line">| volumeId              | 739bf931-a545-4cf4-a4b5-284d82193387 |</span><br><span class="line">+-----------------------+--------------------------------------+</span><br><span class="line">-----------------------------二选一-----------------------------------------------------</span><br><span class="line">[root@controller ~]# openstack server add volume vm block   </span><br></pre></td></tr></table></figure>
+
+<h3 id="✒️KVM-管理"><a href="#✒️KVM-管理" class="headerlink" title="# ✒️KVM 管理"></a><a href="#%E2%9C%92%EF%B8%8Fkvm%E7%AE%A1%E7%90%86">#</a> ✒️KVM 管理</h3><p>使用 OpenStack 私有云平台，找到 virsh 中 ID 为 10 的云主机（若不存在请自行创建）</p>
+<p>在云主机所在的物理节点，进入 virsh 交互式界面</p>
+<p>使用 virsh 命令，将 memory 虚拟机的内存调整为 5242880KB 大小</p>
+<p>(要在计算节点操作)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#重复开关机会让id后退   </span><br><span class="line">[root@compute ~]# virsh list</span><br><span class="line">[root@compute ~]# virsh reboot 1 </span><br><span class="line">#关闭虚拟机</span><br><span class="line">[root@compute ~]# virsh shutdown instance-00000001  </span><br><span class="line">#设置内存最大值</span><br><span class="line">[root@compute ~]# virsh setmaxmem instance-00000001 5242880 --config</span><br><span class="line">#设置使用内存</span><br><span class="line">[root@compute ~]# virsh setmem instance-00000001 5242880 --config</span><br><span class="line">#查看虚拟机信息</span><br><span class="line">[root@compute qemu]# virsh dominfo instance-00000001</span><br><span class="line">Id:             7</span><br><span class="line">Name:           instance-00000002</span><br><span class="line">UUID:           94f7f6e7-fb0c-42f7-8308-d28a87a472da</span><br><span class="line">OS Type:        hvm</span><br><span class="line">State:          running</span><br><span class="line">CPU(s):         2</span><br><span class="line">CPU time:       2.5s</span><br><span class="line">Max memory:     5242880 KiB</span><br><span class="line">Used memory:    5242880 KiB</span><br><span class="line">Persistent:     yes</span><br><span class="line">Autostart:      disable</span><br><span class="line">Managed save:   no</span><br><span class="line">Security model: selinux</span><br><span class="line">Security DOI:   0</span><br><span class="line">Security label: system_u:system_r:svirt_t:s0:c74,c387 (permissive)</span><br></pre></td></tr></table></figure>
+
+<h3 id="📌虚拟机调整-flavor"><a href="#📌虚拟机调整-flavor" class="headerlink" title="# 📌虚拟机调整 flavor"></a><a href="#%F0%9F%93%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%B0%83%E6%95%B4flavor">#</a> 📌虚拟机调整 flavor</h3><p>使用 OpenStack 私有云平台，使用 centos7.9 镜像，flavor 使用 1vcpu&#x2F;2G 内存 &#x2F; 40G 硬盘</p>
+<p>创建云主机 cscc_vm，假设在使用过程中，发现该云主机配置太低，需要调整，请修改相应配置</p>
+<p>将 dashboard 界面上的云主机调整实例大小可以使用，将该云主机实例大小调整为 2vcpu&#x2F;4G 内存 &#x2F; 40G 硬盘</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#可以直接转换大小但是会报错  No valid host was found. No valid host found for resize </span><br><span class="line">#所以要修改配置文件</span><br><span class="line">[root@controller ~]# cat /etc/nova/nova.conf|grep resize</span><br><span class="line">allow_resize_to_same_host=True</span><br><span class="line"></span><br><span class="line">dashboard界面上的云主机调整实例大小可以使用</span><br><span class="line"></span><br><span class="line">-----------------------------二选一--------------------------</span><br><span class="line">（没反应）</span><br><span class="line">[root@controller ~]# openstack server resize --flavor m1.middle vm</span><br><span class="line">[root@controller ~]# nova resize vm 1</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">lsknawm</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/04/30/Nova%20%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">http://example.com/2023/04/30/Nova%20%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">lsknawm</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/04/30/OpenStack%20%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98%E5%AE%9E%E6%93%8D%E6%89%8B%E5%86%8C%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="案例描述">
+                        
+                        <span class="card-title">案例描述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lsknawm
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/04/30/Neutron%20%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Neutron 网络服务">
+                        
+                        <span class="card-title">Neutron 网络服务</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            lsknawm
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">lsknawm</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

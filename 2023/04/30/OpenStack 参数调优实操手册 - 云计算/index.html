@@ -4,8 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Hexo">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="案例描述, Hexo">
+    <meta name="description" content="# 案例描述知识点：
+（1）了解 OpenStack 使用参数调优的方法
+（2）了解 OpenStack 参数调优的作用
+技能点：
+（1）掌握 OpenStack 使用参数调优的方法
+（2）掌握 OpenStack 参数调优的具体意义
+# ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Hexo</title>
+    <title>案例描述 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -339,7 +345,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">案例描述</h1>
                 </div>
             </div>
         </div>
@@ -375,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-06-09
+                    2023-04-30
                 </div>
                 
 
@@ -396,19 +402,156 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <h2 id="案例描述"><a href="#案例描述" class="headerlink" title="# 案例描述"></a><a href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0">#</a> 案例描述</h2><p>知识点：</p>
+<p>（1）了解 OpenStack 使用参数调优的方法</p>
+<p>（2）了解 OpenStack 参数调优的作用</p>
+<p>技能点：</p>
+<p>（1）掌握 OpenStack 使用参数调优的方法</p>
+<p>（2）掌握 OpenStack 参数调优的具体意义</p>
+<h2 id="案例准备"><a href="#案例准备" class="headerlink" title="# 案例准备"></a><a href="#%E6%A1%88%E4%BE%8B%E5%87%86%E5%A4%87">#</a> 案例准备</h2><h3 id="1-规划节点"><a href="#1-规划节点" class="headerlink" title="# 1. 规划节点"></a><a href="#_1-%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9">#</a> 1. 规划节点</h3><p>节点规划见表 1-1。</p>
+<p>表 1-1 节点规划</p>
+<table><thead><tr><th><strong>IP</strong></th><th><strong>主机名</strong></th><th><strong>节点</strong></th></tr></thead><tbody><tr><td>192.168.100.10</td><td>controller</td><td>云平台 all-in-one 节点</td></tr></tbody></table>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="2-基础环境准备"><a href="#2-基础环境准备" class="headerlink" title="# 2. 基础环境准备"></a><a href="#_2-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">#</a> 2. 基础环境准备</h3><p>有一个安装完毕的 OpenStack 平台。</p>
+<h2 id="案例实施"><a href="#案例实施" class="headerlink" title="# 案例实施"></a><a href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD">#</a> 案例实施</h2><h3 id="OpenStack-参数调优"><a href="#OpenStack-参数调优" class="headerlink" title="# OpenStack 参数调优"></a><a href="#openstack%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98-2">#</a> OpenStack 参数调优</h3><h4 id="1-Nova-关键参数调优"><a href="#1-Nova-关键参数调优" class="headerlink" title="# 1.Nova 关键参数调优"></a><a href="#_1-nova%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98">#</a> 1.Nova 关键参数调优</h4><p>vcpu_pin_set 建议值是预留前几个物理 CPU，把后面的所有 CPU 分配给虚拟机使用；</p>
+<p>cpu_allocation_ratio &#x3D; 4.0 物理 CPU 超售比例，默认是 16 倍，超线程也算作一个物理 CPU，需要根据具体负载和物理 CPU 能力进行综合判断后确定具体的配置；</p>
+<p>ram_allocation_ratio &#x3D; 1.0 内存分配超售比例，默认是 1.5 倍，生产环境不建议开启超售；</p>
+<p>reserved_host_memory_mb &#x3D; 4096 内存预留量，这部分内存不能被虚拟机使用；</p>
+<p>reserved_host_disk_mb &#x3D; 10240 磁盘预留空间，这部分空间不能被虚拟机使用；</p>
+<p>service_down_time &#x3D; 120 服务下线时间阈值，默认 60，如果一个节点上的 nova 服务超过这个时间没有上报心跳到数据库，api 服务会认为该服务已经下线，如果配置过短或过长，都会导致误判；</p>
+<p>rpc_response_timeout &#x3D; 300 RPC 调用超时时间，由于 Python 的单进程不能真正的并发，所以 RPC 请求可能不能及时响应，尤其是目标节点在执行耗时较长的定时任务时，所以需要综合考虑超时时间和等待容忍时间；</p>
+<p>multi_host &#x3D; True 是否开启 nova-network 的多节点模式，如果需要多节点部署，则该项需要设置为 True。</p>
+<h4 id="2-keystone-关键参数调优"><a href="#2-keystone-关键参数调优" class="headerlink" title="# 2.keystone 关键参数调优"></a><a href="#_2-keystone%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98">#</a> 2.keystone 关键参数调优</h4><p>主要是用来来存储 token，一般是 SQL 数据库，也可以是 memcache。sql 可以持久化存储，而 memcache 则速度更快，尤其是当用户要更新密码的时候，需要删除所有过期的 token，这种情况下 SQL 的速度与 memcache 相差很大很大。</p>
+<h4 id="3-glance-关键参数调优"><a href="#3-glance-关键参数调优" class="headerlink" title="# 3.glance 关键参数调优"></a><a href="#_3-glance%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98">#</a> 3.glance 关键参数调优</h4><p>注意包括 glance-api 和 glance-registry</p>
+<p>workers &#x3D; 2 glance-api 处理请求的子进程数量，如果配置成 0，则只有一个主进程，相应的配置成 2，则有一个主进程加 2 个子进程来并发处理请求。建议根据进程所在的物理节点计算能力和云平台请求量来综合确定。</p>
+<p>api_limit_max &#x3D; 1000 与 nova 中的配置 osapi_max_limit 意义相同</p>
+<p>limit_param_default &#x3D; 1000 一个响应中最大返回项数，可以在请求参数中指定，默认是 25，如果设置过短，可能导致响应数据被截断。</p>
+<h4 id="4-OpenStack-底层依赖软件版本、配置以及调优"><a href="#4-OpenStack-底层依赖软件版本、配置以及调优" class="headerlink" title="# 4.OpenStack 底层依赖软件版本、配置以及调优"></a><a href="#_4-openstack%E5%BA%95%E5%B1%82%E4%BE%9D%E8%B5%96%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E3%80%81%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8A%E8%B0%83%E4%BC%98">#</a> 4.OpenStack 底层依赖软件版本、配置以及调优</h4><ol>
+<li>虚拟化技术选型</li>
+</ol>
+<p>我们选用的是 Linux 内核兼容最好的 KVM 虚拟化技术。相对于 Xen 虚拟化技术，KVM 虚拟化技术与 Linux 内核联系更为紧密，更容易维护。选择 KVM 虚拟化技术后，虚拟化管理驱动采用了 OpenStack 社区 KVM 配置的计算驱动 libvirt，这也是一套使用非常广泛，社区活跃度很高的一套开源虚拟化管理软件，支持 KVM 在内的各种虚拟化管理。</p>
+<p>2.CPU 配置优化 CPU0 由于处理中断请求，本身负荷就较重，不宜再用于云主机。因此，综合上面的因素考虑以及多轮的测试验证，我们最终决定将 0-3 号 CPU 预留出来，然后让云主机在剩余的 CPU 资源中由宿主机内核去调度。</p>
+<ol start="3">
+<li>内存配置优化</li>
+</ol>
+<p>echo 0 &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;ksm&#x2F;pages_shared</p>
+<p>echo 0 &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;ksm&#x2F;pages_sharing</p>
+<p>echo always &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;enabled</p>
+<p>echo never &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;defrag</p>
+<p>echo 0 &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;khugepaged&#x2F;defrag</p>
+<p>4.IO 配置优化 #磁盘 IO 调优 KVM 的 disk cache 方式：借鉴 IBM 的分析，网易私有云采用 none 这种 cache 方式。</p>
+<ol start="5">
+<li>网络 IO 调优我们主要是开启了 vhost_net 模式，来减少网络延时和增加吞吐量。</li>
+</ol>
+<h3 id="实战案例"><a href="#实战案例" class="headerlink" title="# 实战案例"></a><a href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B">#</a> 实战案例</h3><p>使用 OpenStack 私有云平台，修改相关参数对 openstack 平台进行调优操作，相应的调优操作有：</p>
+<p>（1）预留前 2 个物理 CPU，把后面的所有 CPU 分配给虚拟机使用（假设 vcpu 为 16 个）；</p>
+<p>（2）设置 cpu 超售比例为 4 倍；</p>
+<p>（3）设置内存超售比例为 1.5 倍；</p>
+<p>（4）预留 2048mb 内存，这部分内存不能被虚拟机使用；</p>
+<p>（5）预留 10240mb 磁盘，这部分磁盘不能被虚拟机使用；</p>
+<p>（6）设置 nova 服务心跳检查时间为 120 秒。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/nova/nova.conf</span><br><span class="line">vcpu_pin_set = 2-15</span><br><span class="line">cpu_allocation_ratio = 4.0</span><br><span class="line">ram_allocation_ratio = 1.5</span><br><span class="line">reserved_host_memory_mb = 2048</span><br><span class="line">reserved_host_disk_mb = 10240</span><br><span class="line">service_down_time = 120</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h4 id="Linux-系统句柄优化"><a href="#Linux-系统句柄优化" class="headerlink" title="# Linux 系统句柄优化"></a><a href="#linux%E7%B3%BB%E7%BB%9F%E5%8F%A5%E6%9F%84%E4%BC%98%E5%8C%96">#</a> Linux 系统句柄优化</h4><p>（1）查看当前的句柄数</p>
+<p>查看当前系统默认的文件句柄数量，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ulimit -n</span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>可以看到当前的系统默认限制是 1024。</p>
+<p>（2）修改句柄数.</p>
+<p>修改 Linux 系统的句柄数限制有两种方法，一种是使用 ulimit 命令临时生效，另外一种是修改配置文件，永久生效。此处使用修改配置文件的方式。</p>
+<p><strong>注意：如果使用命令临时生效句柄限制，root 用户可以调大或者调小句柄的限制，而非 root 用户一旦设定了值，就只能调小这个限制，不能调大，不然会报 “bash: ulimit: open files: cannot modify limit: Operation not permitted” 的错误。</strong></p>
+<p>修改配置文件调整句柄限制为 65535，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# echo &quot;* soft nofile 65535&quot; &gt;&gt; /etc/security/limits.conf</span><br><span class="line">[root@localhost ~]# echo &quot;* hard nofile 65535&quot; &gt;&gt; /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>添加配置的解释如下：</p>
+<p>● *：代表所有用户。</p>
+<p>● soft：超过文件句柄数时，仅提示。</p>
+<p>● hard：超过文件句柄数时，直接限制。</p>
+<p>修改完之后，不需要重启系统即会生效，但是需要重新登录。退出重新登录该云主机，查看当前的句柄限制，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# logout</span><br><span class="line"></span><br><span class="line">Connection closed.</span><br><span class="line">Last login: Tue Feb  8 01:58:31 2022 from 192.168.0.70</span><br><span class="line">[root@localhost ~]# ulimit -n</span><br><span class="line">65535</span><br></pre></td></tr></table></figure>
+
+<p>可以看到当前的限制为 65535。</p>
+<p>至此，Linux 系统文件句柄优化配置结束。在生产环境中，系统默认的 1024 远远不够，会导致系统报 “too many open files” 的错误。所以优化句柄数量限制是很有必要的。此案例默认使用的 root 用户进行修改，如果使用非 root 用户，在修改句柄限制的时候，会有比较多的限制，感兴趣的读者，可以自行查找资料学习。</p>
+<h2 id="案例二：OpenStack-平台调度策略优化"><a href="#案例二：OpenStack-平台调度策略优化" class="headerlink" title="# 案例二：OpenStack 平台调度策略优化"></a><a href="#%E6%A1%88%E4%BE%8B%E4%BA%8C-openstack%E5%B9%B3%E5%8F%B0%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96">#</a> 案例二：OpenStack 平台调度策略优化</h2><h3 id="案例准备-1"><a href="#案例准备-1" class="headerlink" title="# 案例准备"></a><a href="#%E6%A1%88%E4%BE%8B%E5%87%86%E5%A4%87-2">#</a> 案例准备</h3><h4 id="1-规划节点-1"><a href="#1-规划节点-1" class="headerlink" title="# 1. 规划节点"></a><a href="#_1-%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9-2">#</a> 1. 规划节点</h4><p>根据云平台分配的主机。节点规划见表 1。</p>
+<p>表 1 节点规划</p>
+<table><thead><tr><th><strong>IP</strong></th><th><strong>主机名</strong></th><th><strong>节点</strong></th></tr></thead><tbody><tr><td>192.168.200.11</td><td>controller</td><td>控制节点</td></tr></tbody></table>
+
+<h4 id="2-基础准备"><a href="#2-基础准备" class="headerlink" title="# 2. 基础准备"></a><a href="#_2-%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87">#</a> 2. 基础准备</h4><p>根据云平台分配的主机 All in one 作为实验节点，该案例只研究云平台在大规模创建云主机遇到特定报错时的解决方法。</p>
+<h3 id="案例实施-1"><a href="#案例实施-1" class="headerlink" title="# 案例实施"></a><a href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD-2">#</a> 案例实施</h3><h4 id="1-OpenStack-平台报错分析"><a href="#1-OpenStack-平台报错分析" class="headerlink" title="# 1. OpenStack 平台报错分析"></a><a href="#_1-openstack%E5%B9%B3%E5%8F%B0%E6%8A%A5%E9%94%99%E5%88%86%E6%9E%90">#</a> 1. OpenStack 平台报错分析</h4><p>在 OpenStack 平台经历大并发的时候，比如同一个平台，大量的用户同时创建云主机（单个用户创建大量云主机不会触发此种现象），会达到云平台的性能瓶颈，导致创建云主机报错。</p>
+<p>大量用户同时创建云主机，会对云平台的两个服务造成性能瓶颈，一个是 RabbitMQ，当 RabbitMQ 达到瓶颈时，会报如下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR oslo.messaging._drivers.impl_rabbit [req-eb79ea09-247e-49e0-960b-0896ef978661 - - - - -] [303415c0-e494-4ea2-8158-d66d4165600d] AMQP server on controller:5672 is unreachable: timed out. Trying again in 10 seconds.: timeout: timed out</span><br></pre></td></tr></table></figure>
+
+<p>另一个就是 DHCP。本案例重点讨论 DHCP 报错的情况，不考虑 RabbitMQ 的性能瓶颈。DHCP 报错信息如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING nova.compute.manager [req-8d9240cd-6a47-4979-a289-bdd58d399f0a 891c061e4aea4af8909a4affe0c24f92 c509a52800de4902845460fcc5318f3f - 8d899afee33641e0a094f85fbeb9b2c6 8d899afee33641e0a094f85fbeb9b2c6] [instance: 374aa944-6cd7-4dbf-a741-5bd44623919d] Received unexpected event network-vif-plugged-b803941a-c3ae-45d7-b962-13ba1ff00a31 for instance with vm_state active and task_state None.</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，因为大量的创建云主机，导致获取 IP 地址超时，然后就发生了如上的报错。</p>
+<p><strong>注意：这个报错还和计算节点的性能有关，大量创建云主机的时候，计算节点如果没有创建过该镜像的云主机，会先从控制节点复制镜像到计算节点，这也会导致速度变慢。而且在创建大量云主机的时候，对计算节点的硬盘也是一个考验，如果硬盘性能差的话，也会导致创建速度慢，大量排队，超时等现象。</strong></p>
+<h4 id="2-解决策略"><a href="#2-解决策略" class="headerlink" title="# 2. 解决策略"></a><a href="#_2-%E8%A7%A3%E5%86%B3%E7%AD%96%E7%95%A5">#</a> 2. 解决策略</h4><p>在解决问题之前，首先了解创建云主机的过程，在创建虚机过程中，Nova-compute 会调用 wait_for_instance_event 函数（nova&#x2F;compute&#x2F;manage.py）进行 network-vif-plugged 的事件等待。</p>
+<p>在 Nova-compute 配置文件中有两个与该事件相关的参数 - vif_plugging_timeout、vif_plugging_if_fatal，前者是等待事件的最大时间，后者是处理超时异常的方式。若在规定时间内，Nova-compute 接受到了事件响应，那么虚机可正常创建，那么当超时现象发生时，Nova-compute 会根据 vif_plugging_is_fatal 的配置采取两种处理方式。</p>
+<p>若超时发生，并且配置文件中 vif_plugging_is_fatal 为 True，Nova 首先执行 guest.poweroff，停止 Qemu 进程；然后执行 cleanup 函数，先清除网络资源，使用函数_unplug_vifs，删除 plug_vifs 函数创建的 ovs port，ovs agent 检测到了删除端口的事件然后通知 Neutron-server 删除 neutron db 中的 port 信息，最后抛 VirtualInterfaceCreateException。</p>
+<p>如果 vif_plugging_is_fatal 为 False，即便发生 eventlet.timeout.Timeout 异常，创建过程也会继续。然后等虚拟机创建成功后，依然可以拿到 IP 地址。</p>
+<p>通过上述虚拟机创建的过程，对于上述云平台发生的错误，就有了解决的思路，通过修改 &#x2F; etc&#x2F;nova&#x2F;nova.conf 配置文件，将 vif_plugging_is_fatal 参数由 true 改为 false，命令如下：</p>
+<p>修改 &#x2F; etc&#x2F;nova&#x2F;nova.conf 配置文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# vi /etc/nova/nova.conf</span><br></pre></td></tr></table></figure>
+
+<p>找到如下这行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#vif_plugging_is_fatal=true</span><br></pre></td></tr></table></figure>
+
+<p>将该行的注释去掉，并将 true 改为 false，修改完之后如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vif_plugging_is_fatal=false</span><br></pre></td></tr></table></figure>
+
+<p>保存退出 nova.conf，最后重启 Nova 服务，也可以重启所有服务，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# openstack-service restart</span><br></pre></td></tr></table></figure>
+
+<p>等待重启完毕即可。通过该参数的修改，可解决在大并发量创建虚拟机时，因排队超时导致虚拟机获取不到 IP 地址的报错。</p>
+<h2 id="案例三：OpenStack-平台镜像优化"><a href="#案例三：OpenStack-平台镜像优化" class="headerlink" title="# 案例三：OpenStack 平台镜像优化"></a><a href="#%E6%A1%88%E4%BE%8B%E4%B8%89-openstack%E5%B9%B3%E5%8F%B0%E9%95%9C%E5%83%8F%E4%BC%98%E5%8C%96">#</a> 案例三：OpenStack 平台镜像优化</h2><h3 id="案例准备-2"><a href="#案例准备-2" class="headerlink" title="# 案例准备"></a><a href="#%E6%A1%88%E4%BE%8B%E5%87%86%E5%A4%87-3">#</a> 案例准备</h3><h4 id="1-规划节点-2"><a href="#1-规划节点-2" class="headerlink" title="# 1. 规划节点"></a><a href="#_1-%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9-3">#</a> 1. 规划节点</h4><p>根据云平台分配的主机。节点规划见表 1。</p>
+<p>表 1 节点规划</p>
+<table><thead><tr><th><strong>IP</strong></th><th><strong>主机名</strong></th><th><strong>节点</strong></th></tr></thead><tbody><tr><td>192.168.200.11</td><td>controller</td><td>控制节点</td></tr></tbody></table>
+
+<h4 id="2-基础准备-1"><a href="#2-基础准备-1" class="headerlink" title="# 2. 基础准备"></a><a href="#_2-%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87-2">#</a> 2. 基础准备</h4><p>使用云平台分配的 All in one 作为实验节点，本案例只讲述如何优化通过打快照方式制作的镜像。</p>
+<h3 id="案例实施-2"><a href="#案例实施-2" class="headerlink" title="# 案例实施"></a><a href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD-3">#</a> 案例实施</h3><h4 id="1-OpenStack-平台制作镜像"><a href="#1-OpenStack-平台制作镜像" class="headerlink" title="# 1. OpenStack 平台制作镜像"></a><a href="#_1-openstack%E5%B9%B3%E5%8F%B0%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F">#</a> 1. OpenStack 平台制作镜像</h4><p>在 OpenStack 平台的使用过程中，镜像是一个不可或缺的组件与服务，一般来说，使用最多的是基础镜像，比如 CentOS7.5、CentOS7.6、CentOS7.9 等，获取这些基础镜像的方式也很简单，可以通过官网直接下载。</p>
+<p>当用户想使用自定义镜像的时候，可以使用 OpenStack 平台中打快照的方式，去制作镜像，比如想制作一个带有数据库服务的镜像，可以按照如下步骤操作：（具体操作不再演示）</p>
+<p>（1）启动一个基础的 CentOS 镜像；</p>
+<p>（2）连接虚拟机，配置 Yum 源；</p>
+<p>（3）安装数据库服务；</p>
+<p>（4）初始化数据库；</p>
+<p>（5）设置开机自启；</p>
+<p>（6）在 OpenStack 平台中将该虚拟机实例打成快照；</p>
+<p>（7）在控制节点的镜像和快照存放目录 &#x2F; var&#x2F;lib&#x2F;glance&#x2F;images 目录下找到这个镜像文件，改名成 mysql.qcow2；</p>
+<p>通过上述的方法打快照制作镜像，可以获得一个 mysql.qcow2 的镜像文件，使用该文件上传至其他云平台中，今后使用该镜像启动的虚拟机，就带有数据库服务了。</p>
+<h4 id="2-OpenStack-平台镜像优化"><a href="#2-OpenStack-平台镜像优化" class="headerlink" title="# 2. OpenStack 平台镜像优化"></a><a href="#_2-openstack%E5%B9%B3%E5%8F%B0%E9%95%9C%E5%83%8F%E4%BC%98%E5%8C%96">#</a> 2. OpenStack 平台镜像优化</h4><p>在使用打快照方式制作镜像后，镜像的大小会变得非常大，比如一个基础的 CentOS 镜像大小为 400M 左右，但是使用打快照方式制作的镜像大小会有 1 个 G 左右，具体的大小还要根据安装的东西来实际情况实际分析。</p>
+<p>qemu-img 命令中提供一个可用于镜像转换与压缩的选项，即 qemu-img convert。接下来使用该命令，对已经打快照完成的镜像进行压缩操作。</p>
+<p>使用提供的镜像 CentOS7.5-compress.qcow2，下载至 controller 节点的 &#x2F; root 目录下，查看镜像的大小，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# curl -O http://mirrors.douxuedu.com/competition/CentOS7.5-compress.qcow2</span><br><span class="line">[root@controller ~]# du -sh CentOS7.5-compress.qcow2</span><br><span class="line">892M  CentOS7.5-compress.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>可以看到当前的镜像大小为 892M，接下来使用命令，对镜像进行压缩，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# qemu-img convert -c -O qcow2 CentOS7.5-compress.qcow2 CentOS7.5-compress2.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>该命令参数的解释如下：</p>
+<p>● -c：压缩。</p>
+<p>● -O qcow2：输出格式为 qcow2。</p>
+<p>● CentOS7.5-compress.qcow2：被压缩的文件。</p>
+<p>● CentOS7.5-compress2.qcow2：压缩完成后文件。</p>
+<p>等待一小段时间后，压缩完成，查看当前目录下 CentOS7.5-compress2.qcow2 镜像文件的大小，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# du -sh CentOS7.5-compress2.qcow2 </span><br><span class="line">405M  CentOS7.5-compress2.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>可以看到镜像大概被压缩到了一半的大小。使用 qemu-img convert 命令可以压缩 QCW2 镜像，在日常的工作中，经常会用到此命令进行镜像压缩。</p>
+<h2 id="案例四：OpenStack-平台-I-x2F-O-优化"><a href="#案例四：OpenStack-平台-I-x2F-O-优化" class="headerlink" title="# 案例四：OpenStack 平台 I&#x2F;O 优化"></a><a href="#%E6%A1%88%E4%BE%8B%E5%9B%9B-openstack%E5%B9%B3%E5%8F%B0i-o%E4%BC%98%E5%8C%96">#</a> 案例四：OpenStack 平台 I&#x2F;O 优化</h2><h3 id="案例准备-3"><a href="#案例准备-3" class="headerlink" title="# 案例准备"></a><a href="#%E6%A1%88%E4%BE%8B%E5%87%86%E5%A4%87-4">#</a> 案例准备</h3><h4 id="1-规划节点-3"><a href="#1-规划节点-3" class="headerlink" title="# 1. 规划节点"></a><a href="#_1-%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9-4">#</a> 1. 规划节点</h4><p>根据云平台分配的主机。节点规划见表 1。</p>
+<p>表 1 节点规划</p>
+<table><thead><tr><th><strong>IP</strong></th><th><strong>主机名</strong></th><th><strong>节点</strong></th></tr></thead><tbody><tr><td>192.168.200.11</td><td>controller</td><td>控制节点</td></tr></tbody></table>
+
+<h4 id="2-基础准备-2"><a href="#2-基础准备-2" class="headerlink" title="# 2. 基础准备"></a><a href="#_2-%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87-3">#</a> 2. 基础准备</h4><p>使用云平台分配的 All in one 作为实验节点。</p>
+<h3 id="案例实施-3"><a href="#案例实施-3" class="headerlink" title="# 案例实施"></a><a href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD-4">#</a> 案例实施</h3><h4 id="I-x2F-O-调度策略修改"><a href="#I-x2F-O-调度策略修改" class="headerlink" title="# I&#x2F;O 调度策略修改"></a><a href="#i-o%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5%E4%BF%AE%E6%94%B9">#</a> I&#x2F;O 调度策略修改</h4><p>调度策略的修改是比较简单的，首先查看当前使用的调度算法，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cat /sys/block/vda/queue/scheduler </span><br><span class="line">[none] mq-deadline kyber</span><br></pre></td></tr></table></figure>
+
+<p>可以看到当前的 I&#x2F;O 调度算法 none，修改算法为 mq-deadline，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# echo mq-deadline &gt; /sys/block/vda/queue/scheduler</span><br></pre></td></tr></table></figure>
+
+<p>修改完之后，查看当前使用的算法，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# cat /sys/block/vda/queue/scheduler </span><br><span class="line">[mq-deadline] kyber none</span><br></pre></td></tr></table></figure>
+
+<p>可以看到当前的 I&#x2F;O 调度算法为 mq-deadline 模式。</p>
+<p>以上就是 I&#x2F;O 策略的优化，无论是单队列还是多队列，都可以使用 echo 命令去修改当前的 I&#x2F;O 策略。选择何种策略，也需要根据当前使用的硬盘与应用场景来决定，不能盲目修改。</p>
 
                 
             </div>
@@ -435,7 +578,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/06/09/hello-world/">http://example.com/2023/06/09/hello-world/</a>
+                    <a href="http://example.com/2023/04/30/OpenStack%20%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98%E5%AE%9E%E6%93%8D%E6%89%8B%E5%86%8C%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">http://example.com/2023/04/30/OpenStack%20%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98%E5%AE%9E%E6%93%8D%E6%89%8B%E5%86%8C%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -553,13 +696,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/06/09/openstack%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
+                <a href="/2023/04/30/OpenStack%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="虚拟机中搭建openstack平台">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Openstack常用命令">
                         
-                        <span class="card-title">虚拟机中搭建openstack平台</span>
+                        <span class="card-title">Openstack常用命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -570,7 +713,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-30
                         </span>
                         <span class="publish-author">
                             
@@ -590,13 +733,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/30/OpenStack%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                <a href="/2023/04/30/Nova%20%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Openstack常用命令">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="🛶Nova 计算服务">
                         
-                        <span class="card-title">Openstack常用命令</span>
+                        <span class="card-title">🛶Nova 计算服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

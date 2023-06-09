@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, Hexo">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="😿manila 文件共享系统, Hexo">
+    <meta name="description" content="# 😿manila 文件共享系统# 简介Manila 项目全称是 File Share Service，文件共享即服务。是 OpenStack 大帐篷模式下的子项目之一，用来提供云上的文件共享，支持 CIFS 协议和 NFS 协议。
+与块">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Hexo</title>
+    <title>😿manila 文件共享系统 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -334,12 +335,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">😿manila 文件共享系统</h1>
                 </div>
             </div>
         </div>
@@ -375,7 +376,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-06-09
+                    2023-04-30
                 </div>
                 
 
@@ -396,19 +397,46 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <h2 id="😿manila-文件共享系统"><a href="#😿manila-文件共享系统" class="headerlink" title="# 😿manila 文件共享系统"></a><a href="#manila%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E7%B3%BB%E7%BB%9F">#</a> 😿manila 文件共享系统</h2><h3 id="简介"><a href="#简介" class="headerlink" title="# 简介"></a><a href="#%E7%AE%80%E4%BB%8B">#</a> 简介</h3><p>Manila 项目全称是 File Share Service，文件共享即服务。是 OpenStack 大帐篷模式下的子项目之一，用来提供云上的文件共享，支持 CIFS 协议和 NFS 协议。</p>
+<p>与块存储类似，共享文件系统是一种持久存储，称为共享，可用于多租户环境。用户可以在任何允许挂载共享的机器上创建和挂载共享作为远程文件系统，并且可以通过网络访问共享导出器。然后，此共享可用于存储、共享和交换文件。共享文件系统服务的默认配置取决于管理员在启动共享文件系统服务时选择的后端驱动程序。</p>
+<h3 id="组件"><a href="#组件" class="headerlink" title="# 组件"></a><a href="#%E7%BB%84%E4%BB%B6">#</a> 组件</h3><p>manila-api 接受并验证 REST 请求，通过客户端及路由进行转发</p>
+<p>manila-scheduler 决定共享创建的后端（后端及 pool）</p>
+<p>manila-share 基于后端创建共享的服务 (类似于 cinder volume 只是创建服务, 并不一定提供服务)</p>
+<h3 id="典型模式"><a href="#典型模式" class="headerlink" title="# 典型模式"></a><a href="#%E5%85%B8%E5%9E%8B%E6%A8%A1%E5%BC%8F">#</a> 典型模式</h3><p>(一) 单独一个或若干个 manila-share 节点上通过 lvm 划分并格式化出一个 ext4 的卷通过 external 网络给云主机访问</p>
+<p>典型架构如下</p>
+<p><img src="http://10.196.110.79:30880/root/yunjisuan/raw/master/1620.png"></p>
+<p>(二) 虚拟机模式</p>
+<p>具体流程看第三段</p>
+<p>架构图如下</p>
+<p><img src="http://10.196.110.79:30880/root/yunjisuan/raw/master/1620-16660531782363.png"></p>
+<p>(三)nas 存储</p>
+<p><img src="http://10.196.110.79:30880/root/yunjisuan/raw/master/1620-16660531909866.png"></p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="# 流程"></a><a href="#%E6%B5%81%E7%A8%8B">#</a> 流程</h3><p>系统会为 manila 创建一个 manila networks,</p>
+<p>用户创建 manila 实例时会进行如下步骤, 其中任何一个步骤出错都会导致创建实例出错</p>
+<ol>
+<li>将 manila 网络接入和指定网络同一个 vrouter 下</li>
+<li>调用 nova 创建一个 manila 云主机, 绑定安全组, 创建 cinder 卷</li>
+<li>manila share 会在 5 分钟内不停的 通过 manila networks 尝试 ssh 连接 manila 虚拟机,</li>
+<li>连接上之后进行 nfs 初始化</li>
+<li>用户虚拟机 用过用户网络 到 vrouter 到 manila 网络 实现对 nfs 的访问</li>
+</ol>
+<h2 id="🙄manila-命令参数"><a href="#🙄manila-命令参数" class="headerlink" title="# 🙄manila 命令参数"></a><a href="#%F0%9F%99%84manila-%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0">#</a> 🙄manila 命令参数</h2><h3 id="创建共享文件"><a href="#创建共享文件" class="headerlink" title="# 创建共享文件"></a><a href="#%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6">#</a> 创建共享文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila create </span><br><span class="line">usage: manila create [--snapshot-id &lt;snapshot-id&gt;] [--name &lt;name&gt;]</span><br><span class="line">                     [--metadata [&lt;key=value&gt; [&lt;key=value&gt; ...]]]</span><br><span class="line">                     [--share-network &lt;network-info&gt;]</span><br><span class="line">                     [--description &lt;description&gt;] [--share-type &lt;share-type&gt;]</span><br><span class="line">                     [--public] [--availability-zone &lt;availability-zone&gt;]</span><br><span class="line">                     [--share-group &lt;share-group&gt;]</span><br><span class="line">                     &lt;share_protocol&gt; &lt;size&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="查看共享文件"><a href="#查看共享文件" class="headerlink" title="# 查看共享文件"></a><a href="#%E6%9F%A5%E7%9C%8B%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6">#</a> 查看共享文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila show </span><br><span class="line">usage: manila show &lt;share&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="授权访问"><a href="#授权访问" class="headerlink" title="# 授权访问"></a><a href="#%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE">#</a> 授权访问</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila access-allow </span><br><span class="line">usage: manila access-allow [--access-level &lt;access_level&gt;]</span><br><span class="line">                           [--metadata [&lt;key=value&gt; [&lt;key=value&gt; ...]]]</span><br><span class="line">                           &lt;share&gt; &lt;access_type&gt; &lt;access_to&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="撤销授权"><a href="#撤销授权" class="headerlink" title="# 撤销授权"></a><a href="#%E6%92%A4%E9%94%80%E6%8E%88%E6%9D%83">#</a> 撤销授权</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila access-deny</span><br><span class="line">usage: manila access-deny &lt;share&gt; &lt;id&gt;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="共享磁盘扩容"><a href="#共享磁盘扩容" class="headerlink" title="# 共享磁盘扩容"></a><a href="#%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9">#</a> 共享磁盘扩容</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila extend </span><br><span class="line">usage: manila extend &lt;share&gt; &lt;new_size&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除共享存储"><a href="#删除共享存储" class="headerlink" title="# 删除共享存储"></a><a href="#%E5%88%A0%E9%99%A4%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8">#</a> 删除共享存储</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila delete </span><br><span class="line">usage: manila delete [--share-group &lt;share-group&gt;] &lt;share&gt; [&lt;share&gt; ...]</span><br></pre></td></tr></table></figure>
+
+<h2 id="🤡manila-基础运维"><a href="#🤡manila-基础运维" class="headerlink" title="# 🤡manila 基础运维"></a><a href="#%F0%9F%A4%A1manila-%E5%9F%BA%E7%A1%80%E8%BF%90%E7%BB%B4">#</a> 🤡manila 基础运维</h2><p>创建一个大小为 1G 的共享存储名为 test，允许使用 IP 访问类型和 OpenStack 管理网段访问共享，访问级别为只读</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">[root@controller ~]# manila create NFS --name test 1 </span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line">| Property                              | Value                                |</span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line">| status                                | creating                             |</span><br><span class="line">| share_type_name                       | default_share_type                   |</span><br><span class="line">| description                           | None                                 |</span><br><span class="line">| availability_zone                     | None                                 |</span><br><span class="line">| share_network_id                      | None                                 |</span><br><span class="line">| share_server_id                       | None                                 |</span><br><span class="line">| share_group_id                        | None                                 |</span><br><span class="line">| host                                  |                                      |</span><br><span class="line">| revert_to_snapshot_support            | False                                |</span><br><span class="line">| access_rules_status                   | active                               |</span><br><span class="line">| snapshot_id                           | None                                 |</span><br><span class="line">| create_share_from_snapshot_support    | False                                |</span><br><span class="line">| is_public                             | False                                |</span><br><span class="line">| task_state                            | None                                 |</span><br><span class="line">| snapshot_support                      | False                                |</span><br><span class="line">| id                                    | eb37d229-2c9d-44ed-b6fe-c544fae16135 |</span><br><span class="line">| size                                  | 1                                    |</span><br><span class="line">| source_share_group_snapshot_member_id | None                                 |</span><br><span class="line">| user_id                               | 115f8c4cab58417bb4c82df8c2977d33     |</span><br><span class="line">| name                                  | test                                 |</span><br><span class="line">| share_type                            | 64c018ca-308f-42c0-a01f-ae241eb44ea0 |</span><br><span class="line">| has_replicas                          | False                                |</span><br><span class="line">| replication_type                      | None                                 |</span><br><span class="line">| created_at                            | 2022-10-18T01:05:57.000000           |</span><br><span class="line">| share_proto                           | NFS                                  |</span><br><span class="line">| mount_snapshot_support                | False                                |</span><br><span class="line">| project_id                            | 9b6463f185dc4b1aa96f24ea27145c0b     |</span><br><span class="line">| metadata                              | &#123;&#125;                                   |</span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line"></span><br><span class="line">[root@controller ~]# manila access-allow test ip 10.196.110.0/24 --access-level ro</span><br><span class="line">+--------------+--------------------------------------+</span><br><span class="line">| Property     | Value                                |</span><br><span class="line">+--------------+--------------------------------------+</span><br><span class="line">| access_key   | None                                 |</span><br><span class="line">| share_id     | eb37d229-2c9d-44ed-b6fe-c544fae16135 |</span><br><span class="line">| created_at   | 2022-10-18T01:07:14.000000           |</span><br><span class="line">| updated_at   | None                                 |</span><br><span class="line">| access_type  | ip                                   |</span><br><span class="line">| access_to    | 10.196.110.0/24                      |</span><br><span class="line">| access_level | ro                                   |</span><br><span class="line">| state        | queued_to_apply                      |</span><br><span class="line">| id           | e43ac4eb-fe7c-4bab-92f6-9e1115f4452d |</span><br><span class="line">| metadata     | &#123;&#125;                                   |</span><br><span class="line">+--------------+--------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p>安装服务后创建 default_share_type 共享类型（不使用驱动程序支持），接着创建一个大小为 2G 的共享存储名为 share01 并开放 share01 目录对 OpenStack 管理网段使用权限，最后将 share01 共享目录挂载至控制节点的 &#x2F; mnt 目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">#创建default_share_type共享类型</span><br><span class="line">[root@controller ~]# manila type-create default_share_type false       </span><br><span class="line">+----------------------+--------------------------------------+</span><br><span class="line">| Property             | Value                                |</span><br><span class="line">+----------------------+--------------------------------------+</span><br><span class="line">| required_extra_specs | driver_handles_share_servers : False |</span><br><span class="line">| Name                 | default_share_type                   |</span><br><span class="line">| Visibility           | public                               |</span><br><span class="line">| is_default           | YES                                  |</span><br><span class="line">| ID                   | 64c018ca-308f-42c0-a01f-ae241eb44ea0 |</span><br><span class="line">| optional_extra_specs |                                      |</span><br><span class="line">| Description          | None                                 |</span><br><span class="line">+----------------------+--------------------------------------+</span><br><span class="line"></span><br><span class="line">#创建一个大小为2G的共享存储</span><br><span class="line">[root@controller ~]# manila create NFS --name share01 2</span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line">| Property                              | Value                                |</span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line">| status                                | creating                             |</span><br><span class="line">| share_type_name                       | default_share_type                   |</span><br><span class="line">| description                           | None                                 |</span><br><span class="line">| availability_zone                     | None                                 |</span><br><span class="line">| share_network_id                      | None                                 |</span><br><span class="line">| share_server_id                       | None                                 |</span><br><span class="line">| share_group_id                        | None                                 |</span><br><span class="line">| host                                  |                                      |</span><br><span class="line">| revert_to_snapshot_support            | False                                |</span><br><span class="line">| access_rules_status                   | active                               |</span><br><span class="line">| snapshot_id                           | None                                 |</span><br><span class="line">| create_share_from_snapshot_support    | False                                |</span><br><span class="line">| is_public                             | False                                |</span><br><span class="line">| task_state                            | None                                 |</span><br><span class="line">| snapshot_support                      | False                                |</span><br><span class="line">| id                                    | 46268cc1-9621-476f-b731-3c29a6013348 |</span><br><span class="line">| size                                  | 2                                    |</span><br><span class="line">| source_share_group_snapshot_member_id | None                                 |</span><br><span class="line">| user_id                               | 115f8c4cab58417bb4c82df8c2977d33     |</span><br><span class="line">| name                                  | share01                              |</span><br><span class="line">| share_type                            | 64c018ca-308f-42c0-a01f-ae241eb44ea0 |</span><br><span class="line">| has_replicas                          | False                                |</span><br><span class="line">| replication_type                      | None                                 |</span><br><span class="line">| created_at                            | 2022-10-18T00:58:04.000000           |</span><br><span class="line">| share_proto                           | NFS                                  |</span><br><span class="line">| mount_snapshot_support                | False                                |</span><br><span class="line">| project_id                            | 9b6463f185dc4b1aa96f24ea27145c0b     |</span><br><span class="line">| metadata                              | &#123;&#125;                                   |</span><br><span class="line">+---------------------------------------+--------------------------------------+</span><br><span class="line"></span><br><span class="line">#授权访问</span><br><span class="line">[root@controller ~]# manila access-allow share01 ip 10.196.110.79</span><br><span class="line">+--------------+--------------------------------------+</span><br><span class="line">| Property     | Value                                |</span><br><span class="line">+--------------+--------------------------------------+</span><br><span class="line">| access_key   | None                                 |</span><br><span class="line">| share_id     | 46268cc1-9621-476f-b731-3c29a6013348 |</span><br><span class="line">| created_at   | 2022-10-18T00:58:57.000000           |</span><br><span class="line">| updated_at   | None                                 |</span><br><span class="line">| access_type  | ip                                   |</span><br><span class="line">| access_to    | 10.196.110.79                        |</span><br><span class="line">| access_level | rw                                   |</span><br><span class="line">| state        | queued_to_apply                      |</span><br><span class="line">| id           | c6711861-0efd-4164-be28-a7f3d6956f76 |</span><br><span class="line">| metadata     | &#123;&#125;                                   |</span><br><span class="line">+--------------+--------------------------------------+</span><br><span class="line"></span><br><span class="line">#挂载</span><br><span class="line">[root@controller ~]# manila show share01 | grep path </span><br><span class="line">path = 10.196.110.99:/var/lib/manila/mnt/share-1d83ee9a-be6e-4469-a918-8eabacafa189 |</span><br><span class="line"></span><br><span class="line">[root@controller ~]# mount -t nfs 10.196.110.99:/var/lib/manila/mnt/share-1d83ee9a-be6e-4469-a918-8eabacafa189 /mnt</span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -435,7 +463,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/06/09/hello-world/">http://example.com/2023/06/09/hello-world/</a>
+                    <a href="http://example.com/2023/04/30/Manila%20%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E7%B3%BB%E7%BB%9F%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">http://example.com/2023/04/30/Manila%20%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E7%B3%BB%E7%BB%9F%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -553,13 +581,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/06/09/openstack%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
+                <a href="/2023/04/30/Neutron%20%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="虚拟机中搭建openstack平台">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Neutron 网络服务">
                         
-                        <span class="card-title">虚拟机中搭建openstack平台</span>
+                        <span class="card-title">Neutron 网络服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -570,7 +598,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-06-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-30
                         </span>
                         <span class="publish-author">
                             
@@ -590,13 +618,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/30/OpenStack%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                <a href="/2023/04/30/Keystone%20%E8%BA%AB%E4%BB%BD%E6%9C%8D%E5%8A%A1%20-%20%E4%BA%91%E8%AE%A1%E7%AE%97/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Openstack常用命令">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Keystone 身份服务">
                         
-                        <span class="card-title">Openstack常用命令</span>
+                        <span class="card-title">Keystone 身份服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
